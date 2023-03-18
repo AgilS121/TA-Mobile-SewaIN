@@ -1,3 +1,6 @@
 import 'package:flutter/material.dart';
 
-var warnalogin = Color.fromRGBO(105, 192, 255, 1);
+class MyColors {
+  static Color bg = Color(0xFF69C0FF);
+  static Color inputloginregis = Color(0xFFFCFCFC);
+}

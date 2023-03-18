@@ -12,9 +12,10 @@ class SewaIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "SewaIn",
       theme: ThemeData(
-        primaryColor: warnalogin,
+        primaryColor: MyColors.bg,
         scaffoldBackgroundColor: Colors.white,
       ),
       home: Welcome(),
