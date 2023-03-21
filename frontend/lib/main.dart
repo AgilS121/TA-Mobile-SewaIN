@@ -16,7 +16,8 @@ class SewaIn extends StatelessWidget {
       title: "SewaIn",
       theme: ThemeData(
         primaryColor: MyColors.bg,
-        scaffoldBackgroundColor: Colors.white,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        scaffoldBackgroundColor: MyColors.bg,
       ),
       home: Welcome(),
     );

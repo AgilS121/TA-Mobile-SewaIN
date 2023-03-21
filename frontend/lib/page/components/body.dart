@@ -7,11 +7,12 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: MyColors.bg,
-      body: SingleChildScrollView(
-      // Column(
-        child: Column(
+    return 
+    // SingleChildScrollView(
+      
+    //   // Column(
+    //     child:
+         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Stack(
@@ -116,8 +117,8 @@ class Body extends StatelessWidget {
             )
           ],
         
-      ),
-      ),
+      // ),
+      
     );
   }
 }
