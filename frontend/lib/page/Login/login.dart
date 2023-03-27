@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/page/Login/background_login.dart';
 import 'package:frontend/page/Register/register.dart';
-import 'package:frontend/page/home/home.dart';
-import 'package:frontend/page/root.dart';
+import 'package:frontend/page/home/root.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class Login extends StatefulWidget {
@@ -12,6 +12,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,24 +23,8 @@ class _LoginState extends State<Login> {
   }
 
   body() {
-    return
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
-        Column(children: [
-      Stack(
-        children: [
-          ClipRect(
-            child: Align(
-              child: Container(
-                // width: 317,
-                // height: 317,
-                padding:
-                    EdgeInsets.only(top: 110, left: 38, right: 38, bottom: 56),
-                child: Image.asset("assets/images/login.png"),
-              ),
-            ),
-          ),
-        ],
-      ),
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      BackgroundLogin(),
       Expanded(
           child: Container(
         decoration: const BoxDecoration(
@@ -46,7 +33,7 @@ class _LoginState extends State<Login> {
               topLeft: Radius.circular(40),
               topRight: Radius.circular(40),
             )),
-        height: 430,
+        // height: 430,
         // width: 393,
         child: Padding(
           padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
@@ -62,15 +49,20 @@ class _LoginState extends State<Login> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              TextField(
+              TextFormField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  label: Text("E-Mail"),
-                  border: OutlineInputBorder(),
-                ),
+                    label: Text("E-Mail"),
+                    border: OutlineInputBorder(),
+                    hintText: "E-Mail"),
               ),
-              TextField(
+              TextFormField(
+                controller: passwordController,
+                obscureText: true,
                 decoration: InputDecoration(
                   label: Text("Password"),
+                  hintText: "Password",
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -95,7 +87,12 @@ class _LoginState extends State<Login> {
                   width: 355,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_isValidForm()) {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => Root()));
+                      }
+                    },
                     child: Text("Masuk"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(MyColors.bg),
@@ -106,11 +103,17 @@ class _LoginState extends State<Login> {
               GestureDetector(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Root()));
+                        MaterialPageRoute(builder: (context) => Register()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Belum memili account ?"), Text("Daftar")],
+                    children: [
+                      Text("Belum memili account ? "),
+                      Text(
+                        "Daftar",
+                        style: TextStyle(color: MyColors.bg),
+                      )
+                    ],
                   ))
             ],
           ),
@@ -118,5 +121,10 @@ class _LoginState extends State<Login> {
       ))
     ]);
     // ),
+  }
+
+  bool _isValidForm() {
+    return emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty;
   }
 }

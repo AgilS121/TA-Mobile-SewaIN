@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/body.dart';
 import 'package:frontend/page/Login/login.dart';
-import 'package:frontend/page/root.dart';
+import 'package:frontend/page/halamanSewa/halamanSewa.dart';
+import 'package:frontend/page/home/root.dart';
 import 'package:frontend/theme/pallete.dart';
 
 void main(List<String> args) {
@@ -21,7 +22,7 @@ class SewaIn extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: MyColors.bg,
       ),
-      home: const Login(),
+      home: HalamanSewa(),
     );
   }
 }
