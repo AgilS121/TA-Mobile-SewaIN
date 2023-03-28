@@ -8,5 +8,5 @@ UNTUK PERUBAHAN SILAKAN HUBUNGI SAYA.
 cara remote githubnya :
 1. git commit -m "(update apa) - nama "
 2. git branch -M main
-3. git add remote oringin https://github.com/AgilS121/TA-Mobile-SewaIN
-4. git push -u origin
+3. git remote add oringin https://github.com/AgilS121/TA-Mobile-SewaIN
+4. git push -u  origin main
