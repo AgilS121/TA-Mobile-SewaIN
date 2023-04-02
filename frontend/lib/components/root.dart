@@ -3,6 +3,7 @@ import 'package:frontend/components/item_bottombar.dart';
 import 'package:frontend/page/home/home.dart';
 import 'package:frontend/page/keranjangSewa/keranjang_sewa.dart';
 import 'package:frontend/page/riwayatPeminjaman/riwayat_peminjaman.dart';
+import 'package:frontend/penyewa/penyewa.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class Root extends StatefulWidget {
@@ -25,7 +26,7 @@ class _RootState extends State<Root> {
     HomePage(),
     KeranjangSewa(),
     RiwayatPeminjaman(),
-    HomePage(),
+    Penyewa(),
   ];
 
   @override

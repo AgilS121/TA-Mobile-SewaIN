@@ -19,15 +19,30 @@ class _PembayaranState extends State<Pembayaran> {
     return Scaffold(
       backgroundColor: MyColors.bg,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: MyColors.bg,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ProfileBox(
-              number: 1,
-            )
+            Expanded(
+                child: Container(
+              child: Row(
+                children: [
+                  Icon(color: Colors.white, Icons.arrow_back),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Pilih Metode Pembayaran",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Poppins'),
+                  )
+                ],
+              ),
+            )),
           ],
         ),
       ),
