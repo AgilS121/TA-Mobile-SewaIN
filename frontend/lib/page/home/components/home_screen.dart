@@ -1,95 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:frontend/models/barang.dart';
+import 'package:frontend/page/halamanSewa/halamanSewa.dart';
 import 'package:frontend/theme/pallete.dart';
+import 'package:intl/intl.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final formatCurrency =
+      NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
   @override
   Widget build(BuildContext context) {
     return Card(
         color: MyColors.bghome,
         child: ListView.builder(
-          itemCount: 5,
+          itemCount: barang.length,
           itemBuilder: (BuildContext context, int index) {
             return Card(
-                elevation: 5,
-                margin: EdgeInsets.all(16),
-                child: Row(
+                child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: ListTile(
+                leading: Image.network(
+                  barang[index].gambar,
+                  width: 46,
+                  height: 46,
+                  fit: BoxFit.cover,
+                ),
+                title: Text(barang[index].namaBarang),
+                subtitle: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: 16,
+                    Text(
+                      barang[index].descripsiBarang,
+                      style:
+                          TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
                     ),
-                    Image.asset(
-                      "assets/images/Mask group.png",
-                      alignment: Alignment.center,
-                      width: 100,
-                      height: 100,
-                    ),
-                    SizedBox(
-                      width: 26,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Rental PS 2",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          "Tukang Rental",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          "Hiburan",
-                          style: TextStyle(
-                            fontSize: 8,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 14,
-                        ),
-                        Text(
-                          "Harga",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      barang[index].kategori,
+                      style:
+                          TextStyle(fontSize: 8, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
-                      width: 16,
+                      height: 20,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        // action on press
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 50, bottom: 0, right: 0),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text("Sewa"),
-                        ),
-                      ),
-                    ),
+                    Text(
+                      formatCurrency.format(barang[index].hargaBarang),
+                      style:
+                          TextStyle(fontSize: 8, fontWeight: FontWeight.w600),
+                    )
                   ],
-                ));
+                ),
+                trailing: ElevatedButton(
+                  onPressed: () {
+                    // action on press
+
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => HalamanSewa()));
+                  },
+                  child: Text("Sewa"),
+                ),
+              ),
+            ));
           },
         ));
+    ;
   }
 }

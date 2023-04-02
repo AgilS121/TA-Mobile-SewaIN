@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/page/Login/background_login.dart';
 import 'package:frontend/page/Register/register.dart';
-import 'package:frontend/page/home/root.dart';
+import 'package:frontend/components/root.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class Login extends StatefulWidget {

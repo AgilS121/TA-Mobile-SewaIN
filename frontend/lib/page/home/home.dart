@@ -20,14 +20,9 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-                child: Container(
-              alignment: Alignment.centerLeft,
-              child: Icon(Icons.arrow_back),
-            )),
             ProfileBox(
               number: 1,
             )

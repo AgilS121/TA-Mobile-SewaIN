@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/body.dart';
+import 'package:frontend/components/root.dart';
 import 'package:frontend/page/halamanSewa/components/durasi_sewa.dart';
 import 'package:frontend/page/halamanSewa/components/image_halaman_sewa.dart';
 import 'package:frontend/theme/pallete.dart';
@@ -29,9 +30,15 @@ class _HalamanSewaState extends State<HalamanSewa> {
           children: [
             Expanded(
               child: Container(
-                alignment: Alignment.centerLeft,
-                child: Icon(color: MyColors.bg, Icons.arrow_back),
-              ),
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    color: MyColors.bg,
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Root()));
+                    },
+                  )),
             ),
             Expanded(
               child: Container(
