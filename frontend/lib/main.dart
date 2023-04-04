@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/root.dart';
 import 'package:frontend/page/Pembayaran/pembayaran.dart';
+import 'package:frontend/page/mitraSewa/mitra_sewa.dart';
 import 'package:frontend/page/pp/photo_profie.dart';
 import 'package:frontend/theme/pallete.dart';
 
@@ -21,7 +22,7 @@ class SewaIn extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: MyColors.bg,
       ),
-      home: Root(),
+      home: MitraSewa(),
     );
   }
 }
