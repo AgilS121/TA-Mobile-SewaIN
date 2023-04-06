@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/body.dart';
 import 'package:frontend/components/root.dart';
 import 'package:frontend/page/halamanSewa/components/durasi_sewa.dart';
 import 'package:frontend/page/halamanSewa/components/image_halaman_sewa.dart';

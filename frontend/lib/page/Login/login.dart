@@ -49,21 +49,30 @@ class _LoginState extends State<Login> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              TextFormField(
+              TextField(
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                    label: Text("E-Mail"),
-                    border: OutlineInputBorder(),
-                    hintText: "E-Mail"),
+                  labelText: 'E-Mail',
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.bg),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.bg),
+                  ),
+                ),
               ),
-              TextFormField(
+              TextField(
                 controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  label: Text("Password"),
-                  hintText: "Password",
-                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.bg),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.bg),
+                  ),
                 ),
               ),
               Row(

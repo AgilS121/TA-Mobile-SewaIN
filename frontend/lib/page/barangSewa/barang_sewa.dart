@@ -128,6 +128,11 @@ class _BarangSewaState extends State<BarangSewa> {
                                       ),
                                       onTap: () {
                                         // Tambahkan kode untuk aksi edit barang
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    updatetambahBarang()));
                                       },
                                     ),
                                     PopupMenuItem(

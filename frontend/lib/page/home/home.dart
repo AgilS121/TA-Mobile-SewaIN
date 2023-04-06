@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/components/profile_box.dart';
 import 'package:frontend/page/home/components/home_image_screen.dart';
 import 'package:frontend/page/home/components/home_screen.dart';
+import 'package:frontend/page/profile/profile.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,6 +26,10 @@ class _HomePageState extends State<HomePage> {
           children: [
             ProfileBox(
               number: 1,
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => Profile())));
+              },
             )
           ],
         ),

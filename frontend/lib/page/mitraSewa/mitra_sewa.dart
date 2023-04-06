@@ -16,35 +16,18 @@ class _MitraSewaState extends State<MitraSewa> {
     return Scaffold(
       backgroundColor: MyColors.bghome,
       appBar: AppBar(
-        backgroundColor: MyColors.bottombar,
-        elevation: 16,
-        shadowColor: Colors.grey,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                child: Container(
-              child: Row(
-                children: [
-                  Icon(color: MyColors.bg, Icons.arrow_back),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Mitra Sewa.in",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Poppins'),
-                  )
-                ],
-              ),
-            )),
-          ],
-        ),
-      ),
+          backgroundColor: MyColors.bottombar,
+          elevation: 16,
+          shadowColor: Colors.grey,
+          iconTheme: IconThemeData(color: MyColors.bg),
+          title: Text(
+            "Mitra Sewa.in",
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Poppins'),
+          )),
       body: body(),
     );
   }

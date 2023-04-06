@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/page/Login/login.dart';
-import 'package:frontend/page/Register/background_register.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:frontend/page/profile/components/image_profile_edit.dart';
 import 'package:frontend/theme/pallete.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class editProfile extends StatefulWidget {
+  const editProfile({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<editProfile> createState() => _editProfileState();
 }
 
-class _RegisterState extends State<Register> {
+class _editProfileState extends State<editProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: MyColors.bg),
+        title: Text(
+          "Edit Profile",
+          style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Colors.black),
+        ),
+      ),
       body: body(),
     );
   }
@@ -22,14 +35,15 @@ class _RegisterState extends State<Register> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        BackgroundRegister(),
+        Expanded(child: imageProfile_edit()),
         Expanded(
+          flex: 2,
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
                 )),
             // height: 700,
             child: Padding(
@@ -37,21 +51,6 @@ class _RegisterState extends State<Register> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    "Daftar",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Poppins',
-                        fontSize: 20),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    "Pastikan mengisi data dengan baik dan benar",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Poppins',
-                        fontSize: 12),
-                  ),
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Nama',
@@ -76,33 +75,20 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Alamat',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: MyColors.bg),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: MyColors.bg),
+                      ),
+                    ),
+                  ),
+                  TextField(
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       labelText: 'E-Mail',
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                    ),
-                  ),
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                    ),
-                  ),
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Confirm Password',
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: MyColors.bg),
                       ),
@@ -125,7 +111,7 @@ class _RegisterState extends State<Register> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: Text("Daftar"),
+                        child: Text("Simpan"),
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(MyColors.bg),
@@ -133,27 +119,11 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Login()));
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Sudah memiliki account ?"),
-                        Text(
-                          "Login",
-                          style: TextStyle(color: MyColors.bg),
-                        )
-                      ],
-                    ),
-                  )
                 ],
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }

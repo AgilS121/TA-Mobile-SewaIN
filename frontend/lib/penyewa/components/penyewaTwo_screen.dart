@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/page/mitraSewa/mitra_sewa.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class PenyewaTwoScreen extends StatefulWidget {
@@ -34,29 +35,42 @@ class _PenyewaTwoScreenState extends State<PenyewaTwoScreen> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              TextFormField(
+              TextField(
                 controller: namaTempat,
+                decoration: InputDecoration(
+                  labelText: 'Nama Tempat',
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.bg),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.bg),
+                  ),
+                ),
+              ),
+              TextField(
+                controller: Lokasi,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  label: Text("Nama Tempat"),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: MyColors.bg)),
+                  labelText: 'Lokasi',
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.bg),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.bg),
+                  ),
                 ),
               ),
-              TextFormField(
-                controller: Lokasi,
-                decoration: InputDecoration(
-                  label: Text("Lokasi"),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: MyColors.bg)),
-                ),
-              ),
-              TextFormField(
+              TextField(
                 controller: noWA,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  label: Text("No WA"),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: MyColors.bg)),
+                  labelText: 'wa.me/628*********',
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.bg),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.bg),
+                  ),
                 ),
               ),
               SizedBox(
@@ -70,7 +84,14 @@ class _PenyewaTwoScreenState extends State<PenyewaTwoScreen> {
                   width: 355,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_isValidForm()) {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MitraSewa()));
+                      }
+                    },
                     child: Text(
                       "Gabung",
                       style: TextStyle(
@@ -87,5 +108,11 @@ class _PenyewaTwoScreenState extends State<PenyewaTwoScreen> {
             ],
           ),
         ));
+  }
+
+  bool _isValidForm() {
+    return namaTempat.text.isNotEmpty &&
+        Lokasi.text.isNotEmpty &&
+        noWA.text.isNotEmpty;
   }
 }
