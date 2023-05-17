@@ -8,6 +8,8 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\SewaController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MemberController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     // kategori
@@ -34,10 +36,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/logout', [AuthenticationController::class, 'logout']);
     Route::get('/me', [AuthenticationController::class, 'me']);
 
+    // members
+    Route::post('/member-regis', [MemberController::class, 'memberRegistrasi']);
+
     // midtrans
     Route::post('/midtrans/buy', [MidtransController::class, 'buy']);
 
+    // email
+    Route::get('/send-verify-mail/{mail}', [UserController::class, 'sendVerifyMail']);
+
+
 });
+// reset password
+Route::post('/forget-password', [UserController::class, 'forgetPassword']);
 
 // barang
 Route::get('/barang',[BarangController::class, 'index']);
@@ -58,4 +69,5 @@ Route::get('/subkategori/{id}', [SubKategoriesController::class, 'show']);
 
 // login
 Route::post('/login', [AuthenticationController::class, 'login']);
+Route::post('/register', [UserController::class, 'register']);
 

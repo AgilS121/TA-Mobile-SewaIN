@@ -29,20 +29,24 @@ class AuthenticationController extends Controller
             ]);
         }
 
+        if ($user->is_verified == 0) {
+            return response()->json([
+                'message' => 'Please verify your email address first.',
+            ], 401);
+        }
+
         $member = Members::where('id_users', $user->id)->first();
-        // dd($member->id);
+
         // Periksa apakah user adalah member atau bukan
-        if ($member !== null && $member->status=="members") {
+        if ($member !== null && $member->status == "members") {
             // Buat token untuk member
             $token = $member->createToken('member login')->plainTextToken;
             $status = "sukses member";
-        }
-        else {
+        } else {
             // Buat token untuk user
             $token = $user->createToken('user login')->plainTextToken;
             $status = "sukses penyewa";
         }
-
 
         return response()->json([
             'access_token' => $token,
@@ -51,6 +55,7 @@ class AuthenticationController extends Controller
             'member' => $member ?? null,
         ]);
     }
+
 
 
 

@@ -7,6 +7,7 @@ use App\Http\Resources\BarangResource;
 use App\Models\Barangs;
 use App\Models\Members;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BarangController extends Controller
 {
@@ -27,20 +28,29 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $dataLogin = Auth::user();
+        if ($dataLogin->status == "members") {
+            $validated = $request->validate([
+                'id_kategori' => 'required',
+                'id_subkategori' => 'required',
+                'nama_barang' => 'required|max:255',
+                'deskripsi' => 'required',
+                'harga' => 'required',
+                'stok' => 'required'
+            ]);
 
-        if ($dataLogin->status=="members") {
-                $validated = $request->validate([
-                        'id_kategori' => 'required',
-                        'id_subkategori' => 'required',
-                        'nama_barang' => 'required|max:255',
-                        'deskripsi' => 'required',
-                        'image' => '',
-                        'harga' => 'required',
-                        'stok' => 'required'
-                    ]);
+            $requestData = $request->except('image');
+            $requestData['id_member'] = $dataLogin->id;
 
-            $request['id_member'] = $dataLogin->id;
-            $barang = Barangs::create($request->all());
+            if ($request->hasFile('image')) {
+                $imageName = $this->generateRandomString();
+                $extension = $request->image->getClientOriginalExtension();
+                $imageNameWithExtension = $imageName . '.' . $extension;
+
+                Storage::putFileAs('images', $request->image, $imageNameWithExtension);
+                $requestData['image'] = $imageNameWithExtension;
+            }
+
+            $barang = Barangs::create($requestData);
             return new BarangResource($barang->loadMissing('barang_member:id,nama_tempat'));
         } else {
             return response()->json([
@@ -48,6 +58,7 @@ class BarangController extends Controller
             ]);
         }
     }
+
 
     public function update(Request $request, $id)
     {
@@ -73,5 +84,16 @@ class BarangController extends Controller
         $barang->delete();
 
         return new BarangResource($barang->loadMissing('barang_member:id,nama_tempat'));
+    }
+
+    function generateRandomString($length = 30)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }
