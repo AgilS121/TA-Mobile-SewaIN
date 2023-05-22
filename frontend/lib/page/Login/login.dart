@@ -5,7 +5,7 @@ import 'package:frontend/components/root.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  const Login({Key? key}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -18,118 +18,144 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: body(),
     );
   }
 
-  body() {
-    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      BackgroundLogin(),
-      Expanded(
-          child: Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
-            )),
-        // height: 430,
-        // width: 393,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                "SELAMAT DATANG!",
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Poppins',
-                  fontSize: 20,
-                ),
-                textAlign: TextAlign.center,
+  Widget body() {
+    return SingleChildScrollView(
+      // Wrap the Column with SingleChildScrollView
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          BackgroundLogin(),
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
               ),
-              TextField(
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: 'E-Mail',
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: MyColors.bg),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: MyColors.bg),
-                  ),
-                ),
-              ),
-              TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: MyColors.bg),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: MyColors.bg),
-                  ),
-                ),
-              ),
-              Row(
+            ),
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(20, 10, 20, 35),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  SizedBox(height: 20),
                   Text(
-                    "Lupa Password?",
+                    "SELAMAT DATANG!",
                     style: TextStyle(
-                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                      fontSize: 20,
                     ),
-                  )
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20),
+                  TextField(
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: 'E-Mail',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: MyColors.bg),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: MyColors.bg),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: MyColors.bg),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: MyColors.bg),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Text(
+                        "Lupa Password?",
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: MyColors.bg,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    width: 355,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_isValidForm()) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Root(),
+                            ),
+                          );
+                        }
+                      },
+                      child: Text(
+                        "Masuk",
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(MyColors.bg),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Register(),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Belum memiliki akun? ",
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w100,
+                                fontSize: 13)),
+                        Text("Daftar",
+                            style: TextStyle(
+                                color: MyColors.bg,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13)),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              SizedBox(
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20))),
-                  width: 355,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_isValidForm()) {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => Root()));
-                      }
-                    },
-                    child: Text("Masuk"),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(MyColors.bg),
-                    ),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Register()));
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Belum memili account ? "),
-                      Text(
-                        "Daftar",
-                        style: TextStyle(color: MyColors.bg),
-                      )
-                    ],
-                  ))
-            ],
+            ),
           ),
-        ),
-      ))
-    ]);
-    // ),
+        ],
+      ),
+    );
   }
 
   bool _isValidForm() {
