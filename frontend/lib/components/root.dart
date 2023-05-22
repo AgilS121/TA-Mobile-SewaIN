@@ -62,7 +62,7 @@ class _RootState extends State<Root> {
               icons.length,
               (index) => BottomBarItem(icons[index], " ",
                       isActive: activeTab == index,
-                      activeColor: Color(0xFFFF7D31), onTap: () {
+                      activeColor: MyColors.bg, onTap: () {
                     setState(() {
                       activeTab = index;
                     });
