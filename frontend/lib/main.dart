@@ -20,7 +20,7 @@ class SewaIn extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: MyColors.bg,
       ),
-      home: Register(),
+      home: Login(),
     );
   }
 }
