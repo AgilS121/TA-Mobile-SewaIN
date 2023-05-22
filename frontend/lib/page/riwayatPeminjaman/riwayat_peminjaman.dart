@@ -44,56 +44,56 @@ class _RiwayatPeminjamanState extends State<RiwayatPeminjaman> {
           ],
         ),
       ),
-      body: body(),
+      // body: body(),
     );
   }
 
-  body() {
-    return ListView.builder(
-      itemCount: barang.length,
-      itemBuilder: (BuildContext context, int index) {
-        if (barang[index].status == 'Selesai') {
-          return Card(
-              child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
-            child: ListTile(
-              leading: Image.network(
-                barang[index].gambar,
-                width: 46,
-                height: 46,
-                fit: BoxFit.cover,
-              ),
-              title: Text(barang[index].namaBarang),
-              subtitle: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    barang[index].descripsiBarang,
-                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "durasi sewa",
-                    style: TextStyle(
-                        fontSize: 8,
-                        fontWeight: FontWeight.w600,
-                        color: MyColors.bg),
-                  )
-                ],
-              ),
-              trailing: Text(
-                barang[index].status,
-                style: TextStyle(
-                    color: MyColors.text,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 8),
-              ),
-            ),
-          ));
-        } else {
-          return SizedBox.shrink();
-        }
-      },
-    );
-  }
+  // body() {
+  //   return ListView.builder(
+  //     itemCount: barang.length,
+  //     itemBuilder: (BuildContext context, int index) {
+  //       if (barang[index].status == 'Selesai') {
+  //         return Card(
+  //             child: Padding(
+  //           padding: EdgeInsets.symmetric(vertical: 8),
+  //           child: ListTile(
+  //             leading: Image.network(
+  //               barang[index].gambar,
+  //               width: 46,
+  //               height: 46,
+  //               fit: BoxFit.cover,
+  //             ),
+  //             title: Text(barang[index].namaBarang),
+  //             subtitle: Column(
+  //               mainAxisAlignment: MainAxisAlignment.start,
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text(
+  //                   barang[index].descripsiBarang,
+  //                   style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+  //                 ),
+  //                 Text(
+  //                   "durasi sewa",
+  //                   style: TextStyle(
+  //                       fontSize: 8,
+  //                       fontWeight: FontWeight.w600,
+  //                       color: MyColors.bg),
+  //                 )
+  //               ],
+  //             ),
+  //             trailing: Text(
+  //               barang[index].status,
+  //               style: TextStyle(
+  //                   color: MyColors.text,
+  //                   fontWeight: FontWeight.w600,
+  //                   fontSize: 8),
+  //             ),
+  //           ),
+  //         ));
+  //       } else {
+  //         return SizedBox.shrink();
+  //       }
+  //     },
+  //   );
+  // }
 }

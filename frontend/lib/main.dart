@@ -20,6 +20,7 @@ class SewaIn extends StatelessWidget {
         scaffoldBackgroundColor: MyColors.bg,
       ),
       home: Login(),
+      routes: {'/login': (context) => Login()},
     );
   }
 }

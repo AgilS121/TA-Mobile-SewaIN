@@ -34,8 +34,12 @@ class _HalamanSewaState extends State<HalamanSewa> {
                     color: MyColors.bg,
                     icon: Icon(Icons.arrow_back),
                     onPressed: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Root()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Root(
+                                    accessToken: '',
+                                  )));
                     },
                   )),
             ),

@@ -6,8 +6,8 @@ import 'package:frontend/page/profile/profile.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  final String accessToken;
+  const HomePage({Key? key, required this.accessToken}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -27,8 +27,12 @@ class _HomePageState extends State<HomePage> {
             ProfileBox(
               number: 1,
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => Profile())));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => Profile(
+                              accessToken: widget.accessToken,
+                            ))));
               },
             )
           ],
