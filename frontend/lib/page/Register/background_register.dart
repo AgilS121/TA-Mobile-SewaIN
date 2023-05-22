@@ -15,8 +15,7 @@ class _BackgroundRegisterState extends State<BackgroundRegister> {
         ClipRRect(
           child: Align(
             child: Container(
-              padding:
-                  EdgeInsets.only(top: 110, left: 38, right: 38, bottom: 36),
+              padding: EdgeInsets.only(top: 10, left: 40, right: 40, bottom: 5),
               child: Image.asset("assets/images/register.png"),
             ),
           ),
