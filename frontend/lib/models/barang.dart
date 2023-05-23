@@ -1,53 +1,44 @@
 import 'package:flutter/material.dart';
 
+import 'kategori.dart';
+
 class Barang {
-  final int id;
-  final String namaBarang;
-  final String descripsiBarang;
-  final String status;
-  final int hargaBarang;
-  final String gambar;
-  late String namaToko;
-  final String kategori;
+  final BigInt id;
+  final BigInt id_kategori;
+  final BigInt id_subkategori;
+  final BigInt id_member;
+  final String nama_barang;
+  final String deskripsi;
+  final String image;
+  final int harga;
+  final int stok;
+  final Kategori kategori;
 
   Barang({
     required this.id,
-    required this.namaBarang,
-    required this.descripsiBarang,
-    required this.status,
-    required this.hargaBarang,
-    required this.gambar,
-    required this.namaToko,
+    required this.id_kategori,
+    required this.id_subkategori,
+    required this.id_member,
+    required this.nama_barang,
+    required this.deskripsi,
+    required this.image,
+    required this.harga,
+    required this.stok,
     required this.kategori,
   });
-}
 
-List<Barang> barang = [
-  Barang(
-      id: 1,
-      namaBarang: "Kamera sony A3",
-      descripsiBarang: "Kamera dengan merek sony",
-      status: "Menunggu Konfirmasi",
-      hargaBarang: 7000000,
-      gambar: 'https://picsum.photos/200/300/?blur=2',
-      namaToko: 'Sony',
-      kategori: 'Elektronik'),
-  Barang(
-      id: 2,
-      namaBarang: "Lensa Sigma",
-      descripsiBarang: "Lensa dari sigma",
-      status: "Terkonfirmasi",
-      hargaBarang: 2400000,
-      gambar: 'https://picsum.photos/seed/picsum/200/300',
-      namaToko: 'Sigma',
-      kategori: 'Lensa'),
-  Barang(
-      id: 3,
-      namaBarang: "Lensa Sigma 2",
-      descripsiBarang: "Lensa dari sigma",
-      status: "Selesai",
-      hargaBarang: 2400000,
-      gambar: 'https://picsum.photos/seed/picsum/200/300',
-      namaToko: 'Sigma',
-      kategori: 'Lensa')
-];
+  factory Barang.fromJson(Map<String, dynamic> json) {
+    return Barang(
+      id: BigInt.from(json['id']),
+      id_kategori: BigInt.from(json['id_kategori']),
+      id_subkategori: BigInt.from(json['id_subkategori']),
+      id_member: BigInt.from(json['id_member']),
+      nama_barang: json['nama_barang'],
+      deskripsi: json['deskripsi'],
+      image: json['image'] as String? ?? '',
+      harga: json['harga'],
+      stok: json['stok'],
+      kategori: Kategori.fromJson(json['kategori'] ?? ''),
+    );
+  }
+}

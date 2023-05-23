@@ -7,7 +7,8 @@ import 'package:frontend/penyewa/penyewa.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class Root extends StatefulWidget {
-  const Root({super.key});
+  final String accessToken;
+  const Root({Key? key, required this.accessToken}) : super(key: key);
 
   @override
   State<Root> createState() => _RootState();
@@ -22,12 +23,18 @@ class _RootState extends State<Root> {
     Icons.badge_outlined,
   ];
 
-  List<Widget> pages = [
-    HomePage(),
-    KeranjangSewa(),
-    RiwayatPeminjaman(),
-    Penyewa(),
-  ];
+  late List<Widget> pages;
+
+  @override
+  void initState() {
+    super.initState();
+    pages = [
+      HomePage(accessToken: widget.accessToken),
+      KeranjangSewa(),
+      RiwayatPeminjaman(),
+      Penyewa(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +54,17 @@ class _RootState extends State<Root> {
       height: 75,
       width: double.infinity,
       padding: EdgeInsets.only(bottom: 15),
-      decoration: BoxDecoration(color: MyColors.bottombar, boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 1,
-          blurRadius: 5,
-          offset: Offset(0, -2), // offset untuk membuat shadow di bagian atas
-        ),
-      ]),
+      decoration: BoxDecoration(
+        color: MyColors.bottombar,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: Offset(0, -2), // offset untuk membuat shadow di bagian atas
+          ),
+        ],
+      ),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +76,8 @@ class _RootState extends State<Root> {
                     setState(() {
                       activeTab = index;
                     });
-                  }))),
+                  }))),   
+
     );
   }
 

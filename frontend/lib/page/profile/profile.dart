@@ -1,16 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controllers/services.dart';
+import 'package:frontend/page/Login/login.dart';
 import 'package:frontend/page/profile/components/image_profile.dart';
 import 'package:frontend/page/profile/profile_edit.dart';
 import 'package:frontend/theme/pallete.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Profile extends StatefulWidget {
-  const Profile({super.key});
+  final String accessToken;
+
+  const Profile({Key? key, required this.accessToken}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+  Future<void> logout() async {
+    final url = Constans.apiUrl + '/logout';
+    final headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${widget.accessToken}'
+    };
+    print(widget.accessToken);
+    try {
+      final response = await http.get(Uri.parse(url), headers: headers);
+
+      if (response.statusCode == 200) {
+        print('Logout berhasil');
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+          (Route<dynamic> route) => false,
+        );
+      } else {
+        print('Logout gagal');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,13 +101,15 @@ class _ProfileState extends State<Profile> {
                     title: Text(
                       'Logout',
                       style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600),
+                        fontFamily: 'Poppins',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
+                    onTap: logout,
                   ),
                 ),
-              ),
+              )
             ]),
           ),
         ),

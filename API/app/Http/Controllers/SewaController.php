@@ -12,6 +12,7 @@ class SewaController extends Controller
     public function index()
     {
         $sewa = Sewas::all();
+        // dd($sewa);
 
         return SewaResource::collection($sewa);
     }
