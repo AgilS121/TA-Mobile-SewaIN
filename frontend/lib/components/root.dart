@@ -66,23 +66,18 @@ class _RootState extends State<Root> {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          icons.length,
-          (index) => BottomBarItem(
-            icons[index],
-            " ",
-            isActive: activeTab == index,
-            activeColor: Color(0xFFFF7D31),
-            onTap: () {
-              setState(() {
-                activeTab = index;
-              });
-            },
-          ),
-        ),
-      ),
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: List.generate(
+              icons.length,
+              (index) => BottomBarItem(icons[index], " ",
+                      isActive: activeTab == index,
+                      activeColor: MyColors.bg, onTap: () {
+                    setState(() {
+                      activeTab = index;
+                    });
+                  }))),   
+
     );
   }
 

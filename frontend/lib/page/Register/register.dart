@@ -370,14 +370,14 @@ class _RegisterState extends State<Register> {
                         Text("Sudah memiliki akun?",
                             style: TextStyle(
                                 fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w100,
+                                fontWeight: FontWeight.w600,
                                 fontSize: 13)),
                         SizedBox(width: 5), // Jarak antara teks
                         Text("Login",
                             style: TextStyle(
                                 color: MyColors.bg,
                                 fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w700,
                                 fontSize: 13)),
                       ],
                     ),

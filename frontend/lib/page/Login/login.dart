@@ -316,13 +316,13 @@ class _LoginState extends State<Login> {
                         Text("Belum memiliki akun? ",
                             style: TextStyle(
                                 fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w100,
+                                fontWeight: FontWeight.w600,
                                 fontSize: 13)),
                         Text("Daftar",
                             style: TextStyle(
                                 color: MyColors.bg,
                                 fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w700,
                                 fontSize: 13)),
 >>>>>>> 410faf8498098d211e863e244248dc1534ebd350
                       ],
