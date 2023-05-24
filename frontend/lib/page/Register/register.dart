@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/controllers/services.dart';
+import 'package:frontend/controllers/services/registerService.dart';
 import 'package:frontend/page/Login/login.dart';
 import 'package:frontend/page/Register/background_register.dart';
 import 'package:frontend/theme/pallete.dart';
@@ -148,7 +149,13 @@ class _RegisterState extends State<Register> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        register();
+                        RegisterService.register(
+                            context,
+                            name.text,
+                            no_telp.text,
+                            email.text,
+                            password.text,
+                            confirm_password.text);
                       },
                       child: const Text("Daftar"),
                       style: ButtonStyle(
@@ -179,61 +186,5 @@ class _RegisterState extends State<Register> {
         )
       ],
     ));
-  }
-
-  Future<void> register() async {
-    const url = Constans.apiUrl + '/register';
-    final headers = {'Accept': 'application/json'};
-
-    try {
-      final response = await http.post(Uri.parse(url), headers: headers, body: {
-        "name": name.text,
-        "no_telp": no_telp.text,
-        "email": email.text,
-        "password": password.text,
-        "password_confirmation": password.text,
-      });
-
-      if (response.statusCode == 200) {
-        print('berhasil registrasi');
-        final responseData = jsonDecode(response.body);
-        final accessToken = responseData['access_token'];
-
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const Login()));
-      } else if (response.statusCode == 400) {
-        print('gagal registrasi');
-        showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-                    title: const Text('Gagal registrasi'),
-                    content: const Text(
-                        'Gagal registrasi, email sudah terdaftar dan cek password anda '),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ]));
-      }
-    } catch (e) {
-      print('Error : $e');
-      showDialog(
-          context: context,
-          builder: ((context) => AlertDialog(
-                title: const Text('Login Gagal'),
-                content: const Text('Ada Kesalahan Jaringan nih'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('OK'),
-                  )
-                ],
-              )));
-    }
   }
 }
