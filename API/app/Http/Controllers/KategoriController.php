@@ -44,7 +44,7 @@ class KategoriController extends Controller
         } else {
             return response()->json([
                 'message' => 'Unauthorized',
-            ]);
+            ],401);
         }
     }
 

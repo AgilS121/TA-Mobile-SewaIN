@@ -28,6 +28,7 @@ class CreateBarangTable extends Migration
             $table->foreign('id_kategori')->references('id')->on('kategories');
             $table->foreign('id_subkategori')->references('id')->on('subkategories');
             $table->foreign('id_member')->references('id')->on('members');
+
         });
     }
 

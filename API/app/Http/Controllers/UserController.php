@@ -27,9 +27,28 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
+            // Validasi gagal
+            $errors = $validator->errors();
+
+            // Periksa jenis kesalahan dan atur status code yang sesuai
+            if ($errors->has('email')) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $errors->first('email')
+                ], 422);
+            }
+
+            if ($errors->has('password')) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $errors->first('password')
+                ], 422);
+            }
+
+            // Kesalahan lainnya
             return response()->json([
                 'status' => 'error',
-                'message' => $validator->errors()
+                'message' => $errors->all()
             ], 400);
         }
 

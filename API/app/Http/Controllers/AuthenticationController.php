@@ -26,7 +26,7 @@ class AuthenticationController extends Controller
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
-            ]);
+            ], 400);
         }
 
         if ($user->is_verified == 0) {
@@ -53,7 +53,7 @@ class AuthenticationController extends Controller
             'token_type' => 'Bearer',
             'status' => $status,
             'member' => $member ?? null,
-        ]);
+        ],200);
     }
 
 

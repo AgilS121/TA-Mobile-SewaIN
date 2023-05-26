@@ -32,6 +32,7 @@ class BarangController extends Controller
             $validated = $request->validate([
                 'id_kategori' => 'required',
                 'id_subkategori' => 'required',
+                'durasi_sewa' => 'required|array',
                 'nama_barang' => 'required|max:255',
                 'deskripsi' => 'required',
                 'harga' => 'required',
@@ -39,6 +40,7 @@ class BarangController extends Controller
             ]);
 
             $requestData = $request->except('image');
+            // $requestData = $request->except(['image', 'durasi_sewa']);
             $requestData['id_member'] = $dataLogin->id;
 
             if ($request->hasFile('image')) {
@@ -51,13 +53,15 @@ class BarangController extends Controller
             }
 
             $barang = Barangs::create($requestData);
+
             return new BarangResource($barang->loadMissing('barang_member:id,nama_tempat'));
         } else {
             return response()->json([
                 'message' => 'Unauthorized',
-            ]);
+            ],401);
         }
     }
+
 
 
     public function update(Request $request, $id)
@@ -67,6 +71,7 @@ class BarangController extends Controller
             'id_subkategori' => '',
             'nama_barang' => 'required|max:255',
             'deskripsi' => 'required',
+            'durasi_sewa' => 'required|array',
             'image' => '',
             'harga' => '',
             'stok' => ''

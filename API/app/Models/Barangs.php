@@ -12,8 +12,10 @@ class Barangs extends Model
 {
     use HasFactory;
 
+    // protected $table = 'barangs';
+
     protected $fillable= [
-        'id_kategori', 'id_subkategori','id_member', 'nama_barang', 'deskripsi', 'image', 'harga', 'stok'
+        'id_kategori', 'id_subkategori','id_member',  'durasi_sewa', 'nama_barang', 'deskripsi', 'image', 'harga', 'stok'
     ];
 
     public function barang_kategori(): BelongsTo
@@ -30,4 +32,20 @@ class Barangs extends Model
     {
         return $this->belongsTo(Members::class, 'id_member');
     }
+
+    public function getDurasiSewaAttribute($value)
+    {
+        return explode(',', $value);
+    }
+
+
+    protected $casts = [
+        'durasi_sewa' => 'array',
+
+    ];
+
+    // protected $attributes = [
+    //     'durasi_sewa' => '[]'
+    // ];
+
 }
