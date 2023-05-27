@@ -54,7 +54,7 @@ class RegisterService {
       showDialog(
           context: context,
           builder: ((context) => AlertDialog(
-                title: const Text('Login Gagal'),
+                title: const Text('Register Gagal'),
                 content: const Text('Ada Kesalahan Jaringan nih'),
                 actions: [
                   TextButton(

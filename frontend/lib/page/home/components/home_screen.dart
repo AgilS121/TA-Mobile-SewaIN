@@ -10,7 +10,8 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final String accessToken;
+  const HomeScreen({super.key, required this.accessToken});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -44,8 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView.builder(
           itemCount: HomeService.barang.length,
           itemBuilder: (BuildContext context, int index) {
+            print("ini durrasi");
+            print(HomeService.barang[index].durasi_sewa);
             String tampungImage = HomeService.barang[index].image;
             print('$tampungImage');
+            BigInt dataid = HomeService.barang[index].id;
+            print('$dataid');
             return Card(
                 child: Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
@@ -83,11 +88,34 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 trailing: ElevatedButton(
-                  onPressed: () {
-                    // action on press
-
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => HalamanSewa()));
+                  onPressed: () async {
+                    final barang = await HomeService.fetchDetailBarang(dataid);
+                    print('Ini barang: $barang');
+                    try {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HalamanSewa(
+                            listbarang: {
+                              "id": HomeService.barang[index].id,
+                              "nama_barang":
+                                  HomeService.barang[index].nama_barang,
+                              "deskripsi": HomeService.barang[index].deskripsi,
+                              "durasi_sewa":
+                                  HomeService.barang[index].durasi_sewa,
+                              "image": HomeService.barang[index].image,
+                              "nama_toko":
+                                  HomeService.barang[index].member.nama_tempat,
+                              "harga": HomeService.barang[index].harga
+                            },
+                            accessToken: widget.accessToken,
+                          ),
+                        ),
+                      );
+                    } catch (e) {
+                      // Tangani kesalahan
+                      print('Error: $e');
+                    }
                   },
                   child: Text("Sewa"),
                 ),

@@ -76,8 +76,7 @@ class _RootState extends State<Root> {
                     setState(() {
                       activeTab = index;
                     });
-                  }))),   
-
+                  }))),
     );
   }
 

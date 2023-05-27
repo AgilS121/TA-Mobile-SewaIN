@@ -20,4 +20,17 @@ class HomeService {
       throw Exception('Gagal mengambil data: ${response.statusCode}');
     }
   }
+
+  static Future<Barang> fetchDetailBarang(BigInt id) async {
+    final url = Constans.apiUrl + '/barang/${id.toString()}';
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final barang = Barang.fromJson(data);
+      return barang;
+    } else {
+      throw Exception('Gagal mengambil data: ${response.statusCode}');
+    }
+  }
 }

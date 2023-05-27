@@ -61,7 +61,11 @@ class _HomePageState extends State<HomePage> {
               left: 0,
               right: 0,
               height: 700,
-              child: Container(color: MyColors.bghome, child: HomeScreen()),
+              child: Container(
+                  color: MyColors.bghome,
+                  child: HomeScreen(
+                    accessToken: widget.accessToken,
+                  )),
             ),
           ],
         ))

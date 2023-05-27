@@ -1,21 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/root.dart';
+import 'package:frontend/controllers/services/addSewaService.dart';
+import 'package:frontend/controllers/services/homeService.dart';
+import 'package:frontend/models/barang.dart';
 import 'package:frontend/page/halamanSewa/components/durasi_sewa.dart';
 import 'package:frontend/page/halamanSewa/components/image_halaman_sewa.dart';
 import 'package:frontend/theme/pallete.dart';
+import 'package:intl/intl.dart';
 
 class HalamanSewa extends StatefulWidget {
-  const HalamanSewa({super.key});
+  final String accessToken;
+  final Map listbarang;
+  const HalamanSewa(
+      {Key? key, required this.listbarang, required this.accessToken});
 
   @override
   State<HalamanSewa> createState() => _HalamanSewaState();
 }
 
 class _HalamanSewaState extends State<HalamanSewa> {
+  final durasiSewaKey = GlobalKey<DurasiSewaPageState>();
   double totalbayar = 0;
-  String title = "PS 3 + Dualshock 3";
-  String namatoko = "Rental PS Juara";
-  String isiDescripsi = "- tas\n- stik";
+
+  final formatCurrency =
+      NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  int _selectedDuration = 1;
+
+  void handleDurationSelected(int duration) {
+    setState(() {
+      _selectedDuration = duration;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +60,7 @@ class _HalamanSewaState extends State<HalamanSewa> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Root(
-                                    accessToken: '',
+                                    accessToken: widget.accessToken,
                                   )));
                     },
                   )),
@@ -60,7 +82,12 @@ class _HalamanSewaState extends State<HalamanSewa> {
     );
   }
 
-  body() {
+  Widget body() {
+    print('selectedDuration : $_selectedDuration');
+    // print('coba ${widget.barang}');
+    // BigInt dataid = HomeService.barang.;
+    //         print('$dataid');
+    print("ini durasi : ${widget.listbarang['durasi_sewa']}");
     return SingleChildScrollView(
         child: SizedBox(
       height: MediaQuery.of(context).size.height,
@@ -74,11 +101,11 @@ class _HalamanSewaState extends State<HalamanSewa> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ImageHalamanSewa(),
+                  ImageHalamanSewa(image: widget.listbarang['image']),
                   Container(
                     padding: EdgeInsets.all(16),
                     child: Text(
-                      "$title",
+                      widget.listbarang['nama_barang'],
                       style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 18,
@@ -100,7 +127,7 @@ class _HalamanSewaState extends State<HalamanSewa> {
                             width: 26,
                           ),
                           Text(
-                            "$namatoko",
+                            widget.listbarang['nama_toko'],
                             style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 13,
@@ -127,7 +154,7 @@ class _HalamanSewaState extends State<HalamanSewa> {
                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                 ),
                 subtitle: Text(
-                  "$isiDescripsi",
+                  widget.listbarang['deskripsi'],
                   style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
                 ),
               ),
@@ -140,7 +167,10 @@ class _HalamanSewaState extends State<HalamanSewa> {
             ),
             Container(
               padding: EdgeInsets.only(left: 20, top: 8),
-              child: DurasiSewaPage(),
+              child: DurasiSewaPage(
+                durasi_sewa: [widget.listbarang['durasi_sewa']],
+                onChanged: handleDurationSelected,
+              ),
             ),
           ],
         ),
@@ -148,7 +178,11 @@ class _HalamanSewaState extends State<HalamanSewa> {
     ));
   }
 
-  showBottomSewa() {
+  Widget showBottomSewa() {
+    int idbarang = widget.listbarang['id'].toInt();
+    String idbarangstring = idbarang.toString();
+    int hargatotal = widget.listbarang['harga'] * _selectedDuration;
+    print("ini total bayar ${totalbayar.toStringAsFixed(2)}");
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -177,7 +211,7 @@ class _HalamanSewaState extends State<HalamanSewa> {
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    "Rp. $totalbayar",
+                    hargatotal.toStringAsFixed(2),
                     style: TextStyle(
                         color: MyColors.bg,
                         fontSize: 13,
@@ -202,7 +236,12 @@ class _HalamanSewaState extends State<HalamanSewa> {
                   width: 351,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => SewaService.sewa(
+                        context,
+                        idbarangstring,
+                        _selectedDuration.toString(),
+                        hargatotal.toString(),
+                        widget.accessToken),
                     child: Text("Sewa"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(MyColors.bg),

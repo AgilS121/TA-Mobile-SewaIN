@@ -9,8 +9,8 @@ class Kategori {
 
   factory Kategori.fromJson(Map<String, dynamic> json) {
     return Kategori(
-      id: BigInt.from(json['id']),
-      nama_kategori: json['nama_kategori'],
+      id: BigInt.from(json['id'] ?? 0),
+      nama_kategori: json['nama_kategori'] ?? '',
     );
   }
 }
