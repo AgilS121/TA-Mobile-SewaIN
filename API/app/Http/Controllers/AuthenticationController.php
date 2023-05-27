@@ -8,6 +8,8 @@ use App\Models\Members;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\MemberResource;
+use App\Http\Resources\UserResource;
 
 
 class AuthenticationController extends Controller
@@ -66,7 +68,17 @@ class AuthenticationController extends Controller
 
     public function me(Request $request)
     {
-        return response()->json(Auth::user());
+        $dataLogin = Auth::user();
+        // dd($dataLogin);
+        if ($dataLogin->status == "members") {
+            // return response()->json($dataLogin);
+            $member = Members::with(['users_member'])->findOrFail($dataLogin->id);
+            return new MemberResource($member);
+        }
+
+        if ($dataLogin->status == "penyewa") {
+            return response()->json($dataLogin);
+        }
     }
 
 }

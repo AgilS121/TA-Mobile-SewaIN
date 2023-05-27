@@ -15,7 +15,7 @@ class Members extends Model
         'id_users', 'nama_tempat', 'lokasi', 'no_wa'
     ];
 
-    public function barang_kategori(): BelongsTo
+    public function users_member(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_users');
     }
