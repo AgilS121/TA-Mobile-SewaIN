@@ -8,6 +8,7 @@ import 'package:frontend/theme/pallete.dart';
 
 class Root extends StatefulWidget {
   final String accessToken;
+
   const Root({Key? key, required this.accessToken}) : super(key: key);
 
   @override

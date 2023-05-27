@@ -7,7 +7,7 @@ import 'package:frontend/theme/pallete.dart';
 class Profile extends StatefulWidget {
   final String accessToken;
 
-  const Profile({Key? key, required this.accessToken}) : super(key: key);
+  const Profile({super.key, required this.accessToken});
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -33,11 +33,14 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  body() {
+  Widget body() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Expanded(child: imageProfile()),
+        Expanded(
+            child: ImageProfile(
+          accessToken: widget.accessToken,
+        )),
         Expanded(
           flex: 2,
           child: Container(

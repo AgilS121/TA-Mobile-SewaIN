@@ -1,17 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:frontend/controllers/services/meService.dart';
+import 'package:frontend/models/members.dart';
+import 'package:frontend/models/users.dart';
 
-class imageProfile extends StatefulWidget {
-  const imageProfile({super.key});
+class ImageProfile extends StatefulWidget {
+  final String accessToken;
+
+  const ImageProfile({Key? key, required this.accessToken}) : super(key: key);
 
   @override
-  State<imageProfile> createState() => _imageProfileState();
+  State<ImageProfile> createState() => _ImageProfileState();
 }
 
-class _imageProfileState extends State<imageProfile> {
+class _ImageProfileState extends State<ImageProfile> {
+  Member? userData;
+
+  void fetchData() async {
+    try {
+      final Member data = await Me.fetchUser(context, widget.accessToken);
+      setState(() {
+        userData = data;
+      });
+    } catch (e) {
+      print('Failed to fetch data: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('userData: $userData');
     return Container(
       width: double.infinity,
       height: 200,
@@ -23,7 +46,7 @@ class _imageProfileState extends State<imageProfile> {
           ),
           SizedBox(height: 10),
           Text(
-            'John Doe',
+            userData?.user.name ?? 'John Doe',
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -32,7 +55,7 @@ class _imageProfileState extends State<imageProfile> {
           ),
           SizedBox(height: 5),
           Text(
-            'Software Engineer',
+            userData?.user.email ?? 'Software Engineer',
             style: TextStyle(
               fontSize: 16,
               color: Colors.white,
