@@ -56,7 +56,9 @@ class _ProfileState extends State<Profile> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const editProfile()));
+                              builder: (context) => editProfile(
+                                    accessToken: widget.accessToken,
+                                  )));
                     },
                     leading: Image.asset("assets/images/User Circle.png"),
                     title: const Text(

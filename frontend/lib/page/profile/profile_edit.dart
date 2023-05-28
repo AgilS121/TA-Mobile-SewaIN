@@ -1,17 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:frontend/controllers/services/meService.dart';
+import 'package:frontend/controllers/services/usersService.dart';
+import 'package:frontend/models/members.dart';
 import 'package:frontend/page/profile/components/image_profile_edit.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class editProfile extends StatefulWidget {
-  const editProfile({super.key});
+  final String accessToken;
+  const editProfile({super.key, required this.accessToken});
 
   @override
   State<editProfile> createState() => _editProfileState();
 }
 
 class _editProfileState extends State<editProfile> {
+  TextEditingController name = TextEditingController();
+  TextEditingController no_telp = TextEditingController();
+  TextEditingController alamat = TextEditingController();
+  TextEditingController email = TextEditingController();
+  int inisial = 0;
+
+  Member? userData;
+
+  void fetchData() async {
+    try {
+      final Member data = await Me.fetchUser(context, widget.accessToken);
+      setState(() {
+        userData = data;
+        name.text = data.user.name;
+        no_telp.text = data.user.no_telp;
+        alamat.text = data.user.alamat;
+        email.text = data.user.email;
+        inisial = data.user.id;
+      });
+    } catch (e) {
+      print('Failed to fecth data : $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +66,7 @@ class _editProfileState extends State<editProfile> {
   }
 
   body() {
+    print('ini inisial : $inisial');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -52,8 +87,10 @@ class _editProfileState extends State<editProfile> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TextField(
+                    controller: name,
                     decoration: InputDecoration(
-                      labelText: 'Nama',
+                      // labelText: 'Nama',
+                      // hintText: userData?.user.name,
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: MyColors.bg),
                       ),
@@ -63,9 +100,11 @@ class _editProfileState extends State<editProfile> {
                     ),
                   ),
                   TextField(
+                    controller: no_telp,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      labelText: 'No Telp',
+                      // labelText: 'No Telp',
+                      // hintText: userData?.user.no_telp,
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: MyColors.bg),
                       ),
@@ -75,8 +114,10 @@ class _editProfileState extends State<editProfile> {
                     ),
                   ),
                   TextField(
+                    controller: alamat,
                     decoration: InputDecoration(
-                      labelText: 'Alamat',
+                      // labelText: 'Alamat',
+                      // hintText: userData?.user.alamat,
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: MyColors.bg),
                       ),
@@ -86,9 +127,11 @@ class _editProfileState extends State<editProfile> {
                     ),
                   ),
                   TextField(
+                    controller: email,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      labelText: 'E-Mail',
+                      // labelText: 'E-Mail',
+                      // hintText: userData?.user.email,
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: MyColors.bg),
                       ),
@@ -110,7 +153,20 @@ class _editProfileState extends State<editProfile> {
                       width: 355,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          UsersService.users(
+                              context,
+                              inisial,
+                              name.text,
+                              alamat.text,
+                              no_telp.text,
+                              email.text,
+                              widget.accessToken);
+                          print(name.text);
+                          print(alamat.text);
+                          print(no_telp.text);
+                          print(email.text);
+                        },
                         child: Text("Simpan"),
                         style: ButtonStyle(
                           backgroundColor:
