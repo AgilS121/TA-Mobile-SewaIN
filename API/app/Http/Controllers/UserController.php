@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Password;
 use App\Models\PasswordReset;
-
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
@@ -68,6 +68,22 @@ class UserController extends Controller
             'status' => 'success',
             'message' => 'User baru berhasil dibuat',
         ], 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'alamat' => 'required|string|max:255',
+            'no_telp' => 'required|string|max:255',
+        ]);
+
+        $user = User::findOrFail($id);
+        // dd($user);
+
+        $user->update($request->all());
+        return new UserResource($user);
     }
 
     public function sendVerifyMail($email)

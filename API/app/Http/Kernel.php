@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'subkategori-post' => \App\Http\Middleware\SubkategoriPosting::class,
         'kategori-post' => \App\Http\Middleware\KategoriPosting::class,
         'sewa-post' => \App\Http\Middleware\SewaPosting::class,
+        'user-post' => \App\Http\Middleware\UsersPosting::class,
     ];
 }

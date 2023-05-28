@@ -27,6 +27,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::patch('/barang/{id}', [BarangController::class, 'update'])->middleware('barang-post');
     Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->middleware('barang-post');
 
+    // users
+    Route::patch('/users/{id}', [UserController::class, 'update']);
+
     //sewa
     Route::post('/sewa', [SewaController::class, 'store']);
     Route::patch('/sewa/{id}', [SewaController::class, 'update'])->middleware('sewa-post');
