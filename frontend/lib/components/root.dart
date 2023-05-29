@@ -31,7 +31,9 @@ class _RootState extends State<Root> {
     super.initState();
     pages = [
       HomePage(accessToken: widget.accessToken),
-      KeranjangSewa(),
+      KeranjangSewa(
+        accessToken: widget.accessToken,
+      ),
       RiwayatPeminjaman(),
       Penyewa(),
     ];

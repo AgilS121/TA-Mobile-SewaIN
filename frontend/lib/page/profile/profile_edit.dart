@@ -127,6 +127,7 @@ class _editProfileState extends State<editProfile> {
                     ),
                   ),
                   TextField(
+                    readOnly: true,
                     controller: email,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
