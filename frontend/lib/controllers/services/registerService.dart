@@ -25,7 +25,7 @@ class RegisterService {
         "password_confirmation": password,
       });
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         print('berhasil registrasi');
         final responseData = jsonDecode(response.body);
         final accessToken = responseData['access_token'];
@@ -48,6 +48,8 @@ class RegisterService {
                         child: const Text('OK'),
                       ),
                     ]));
+      } else {
+        print('gagal regis ${response.statusCode}');
       }
     } catch (e) {
       print('Error : $e');
