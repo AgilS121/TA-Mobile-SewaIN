@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:frontend/components/item_bottombar.dart';
 import 'package:frontend/page/home/home.dart';
 import 'package:frontend/page/keranjangSewa/keranjang_sewa.dart';
+import 'package:frontend/page/mitraSewa/mitra_sewa.dart';
 import 'package:frontend/page/riwayatPeminjaman/riwayat_peminjaman.dart';
 import 'package:frontend/penyewa/penyewa.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class Root extends StatefulWidget {
   final String accessToken;
+  final String status;
 
-  const Root({Key? key, required this.accessToken}) : super(key: key);
+  const Root({Key? key, required this.accessToken, required this.status})
+      : super(key: key);
 
   @override
   State<Root> createState() => _RootState();
@@ -30,12 +33,17 @@ class _RootState extends State<Root> {
   void initState() {
     super.initState();
     pages = [
-      HomePage(accessToken: widget.accessToken),
+      HomePage(
+        accessToken: widget.accessToken,
+        status: widget.status,
+      ),
       KeranjangSewa(
         accessToken: widget.accessToken,
       ),
-      RiwayatPeminjaman(),
-      Penyewa(),
+      RiwayatPeminjaman(
+        accessToken: widget.accessToken,
+      ),
+      if (widget.status == 'members') MitraSewa() else Penyewa(),
     ];
   }
 

@@ -10,9 +10,13 @@ import 'package:intl/intl.dart';
 
 class HalamanSewa extends StatefulWidget {
   final String accessToken;
+  final String status;
   final Map listbarang;
   const HalamanSewa(
-      {Key? key, required this.listbarang, required this.accessToken});
+      {Key? key,
+      required this.listbarang,
+      required this.accessToken,
+      required this.status});
 
   @override
   State<HalamanSewa> createState() => _HalamanSewaState();
@@ -61,6 +65,7 @@ class _HalamanSewaState extends State<HalamanSewa> {
                           MaterialPageRoute(
                               builder: (context) => Root(
                                     accessToken: widget.accessToken,
+                                    status: widget.status,
                                   )));
                     },
                   )),

@@ -7,7 +7,9 @@ import 'package:frontend/theme/pallete.dart';
 
 class HomePage extends StatefulWidget {
   final String accessToken;
-  const HomePage({Key? key, required this.accessToken}) : super(key: key);
+  final String status;
+  const HomePage({Key? key, required this.accessToken, required this.status})
+      : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -65,6 +67,7 @@ class _HomePageState extends State<HomePage> {
                   color: MyColors.bghome,
                   child: HomeScreen(
                     accessToken: widget.accessToken,
+                    status: widget.status,
                   )),
             ),
           ],

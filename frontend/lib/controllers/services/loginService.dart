@@ -29,12 +29,17 @@ class LoginService {
         final responseData = jsonDecode(response.body);
         final accessToken = responseData['access_token'];
         print(accessToken);
+        // print('data login');
+        // print(response.body);
+        final status = responseData['member']['status'];
+        // print(status);
 
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => Root(
               accessToken: accessToken,
+              status: status,
             ),
           ),
         );

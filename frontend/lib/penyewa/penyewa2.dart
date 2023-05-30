@@ -4,7 +4,7 @@ import 'package:frontend/penyewa/components/penyewaTwo_screen.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class PenyewaTwo extends StatefulWidget {
-  const PenyewaTwo({super.key});
+  const PenyewaTwo({Key? key});
 
   @override
   State<PenyewaTwo> createState() => _PenyewaTwoState();
@@ -18,27 +18,31 @@ class _PenyewaTwoState extends State<PenyewaTwo> {
       appBar: AppBar(
         backgroundColor: MyColors.bg,
       ),
+      resizeToAvoidBottomInset: true,
       body: body(),
     );
   }
 
-  body() {
-    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      Expanded(
-        child: Stack(
-          children: [
-            Positioned(
-              top: 158,
-              left: 80,
-              right: 80,
-              child: Container(
-                child: PenyewaTwoImageScreen(),
-              ),
+  Widget body() {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Positioned(
+            top: 158,
+            left: 80,
+            right: 80,
+            child: Container(
+              child: PenyewaTwoImageScreen(),
             ),
-            Positioned.fill(top: 404, bottom: 0, child: PenyewaTwoScreen()),
-          ],
-        ),
+          ),
+          Positioned.fill(
+            top: 404,
+            bottom: 0,
+            child: PenyewaTwoScreen(),
+          ),
+        ],
       ),
-    ]);
+    );
   }
 }

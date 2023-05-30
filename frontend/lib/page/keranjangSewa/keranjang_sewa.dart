@@ -82,11 +82,11 @@ class _KeranjangSewaState extends State<KeranjangSewa> {
         // print('ini data');
         // print(DataSewa.sewa[index].barang.nama_barang);
         // print(DataSewa.sewa[index].barang.deskripsi);
-        // print(DataSewa.sewa[index].id_penyewa);
+        print(DataSewa.sewa[index].id_penyewa);
         // print(DataSewa.sewa[index].id_barang);
-        // print(DataSewa.sewa[index].status);
+        print(DataSewa.sewa[index].status);
         // print(DataSewa.sewa[index].barang.image);
-        if (DataSewa.sewa[index].status == 'Belum') {
+        if (DataSewa.sewa[index].status != 'Selesai') {
           return Card(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 8),

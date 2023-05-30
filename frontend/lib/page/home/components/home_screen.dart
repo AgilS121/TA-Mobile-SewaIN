@@ -11,7 +11,9 @@ import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   final String accessToken;
-  const HomeScreen({super.key, required this.accessToken});
+  final String status;
+  const HomeScreen(
+      {super.key, required this.accessToken, required this.status});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -109,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "harga": HomeService.barang[index].harga
                             },
                             accessToken: widget.accessToken,
+                            status: widget.status,
                           ),
                         ),
                       );
