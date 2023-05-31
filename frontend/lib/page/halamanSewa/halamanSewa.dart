@@ -108,13 +108,13 @@ class _HalamanSewaState extends State<HalamanSewa> {
                 children: [
                   ImageHalamanSewa(image: widget.listbarang['image']),
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: EdgeInsets.all(10),
                     child: Text(
                       widget.listbarang['nama_barang'],
                       style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 18,
-                          fontWeight: FontWeight.w800),
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                   Row(
@@ -129,7 +129,7 @@ class _HalamanSewaState extends State<HalamanSewa> {
                                 AssetImage("assets/images/default.png"),
                           ),
                           SizedBox(
-                            width: 26,
+                            width: 10,
                           ),
                           Text(
                             widget.listbarang['nama_toko'],
@@ -140,7 +140,20 @@ class _HalamanSewaState extends State<HalamanSewa> {
                           ),
                         ]),
                       ),
-                      ElevatedButton(onPressed: () {}, child: Text("Hubungi"))
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Hubungi",
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w700),
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(MyColors.bg),
+                        ),
+                      )
                     ],
                   )
                 ],
@@ -156,11 +169,17 @@ class _HalamanSewaState extends State<HalamanSewa> {
               child: ListTile(
                 title: Text(
                   "Deskripsi Barang",
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600),
                 ),
                 subtitle: Text(
                   widget.listbarang['deskripsi'],
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500),
                 ),
               ),
             ),
@@ -247,7 +266,13 @@ class _HalamanSewaState extends State<HalamanSewa> {
                         _selectedDuration.toString(),
                         hargatotal.toString(),
                         widget.accessToken),
-                    child: Text("Sewa"),
+                    child: Text(
+                      "Sewa",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w700),
+                    ),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(MyColors.bg),
                     ),

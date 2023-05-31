@@ -40,7 +40,7 @@ class _LoginState extends State<Login> {
         children: [
           const BackgroundLogin(),
           // SizedBox(
-          //   height: 135,
+          //   height: 56,
           // ),
           Container(
             height: 486,
@@ -52,11 +52,11 @@ class _LoginState extends State<Login> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 35),
+              padding: const EdgeInsets.fromLTRB(20, 5, 20, 30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   const Text(
                     "SELAMAT DATANG!",
                     style: TextStyle(
@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 5),
                   TextField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 0),
                   TextField(
                     controller: passwordController,
                     obscureText: true,
@@ -94,7 +94,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   Row(
                     children: [
                       Text(
@@ -107,7 +107,7 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   SizedBox(
                     width: 355,
                     height: 50,
@@ -132,7 +132,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 5),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(

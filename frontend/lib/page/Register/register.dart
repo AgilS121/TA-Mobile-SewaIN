@@ -42,12 +42,12 @@ class _RegisterState extends State<Register> {
           decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40),
-                topRight: Radius.circular(40),
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
               )),
-          height: 700,
+          height: 600,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
+            padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -157,7 +157,11 @@ class _RegisterState extends State<Register> {
                             password.text,
                             confirm_password.text);
                       },
-                      child: const Text("Daftar"),
+                      child: const Text("Daftar",
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13)),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(MyColors.bg),
                       ),
@@ -172,10 +176,18 @@ class _RegisterState extends State<Register> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Sudah memiliki account ?"),
+                      const Text("Sudah memiliki account ? ",
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13)),
                       Text(
                         "Login",
-                        style: TextStyle(color: MyColors.bg),
+                        style: TextStyle(
+                            color: MyColors.bg,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13),
                       )
                     ],
                   ),
