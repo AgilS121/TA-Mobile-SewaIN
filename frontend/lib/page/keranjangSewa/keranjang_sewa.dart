@@ -42,7 +42,7 @@ class _KeranjangSewaState extends State<KeranjangSewa> {
       appBar: AppBar(
         backgroundColor: MyColors.bottombar,
         elevation: 16,
-        shadowColor: Colors.grey,
+        shadowColor: Color.fromARGB(0, 41, 41, 41).withOpacity(0.2),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +97,14 @@ class _KeranjangSewaState extends State<KeranjangSewa> {
                   height: 46,
                   fit: BoxFit.cover,
                 ),
-                title: Text(DataSewa.sewa[index].barang.nama_barang),
+                title: Text(
+                  DataSewa.sewa[index].barang.nama_barang,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 subtitle: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,14 +113,16 @@ class _KeranjangSewaState extends State<KeranjangSewa> {
                       DataSewa.sewa[index].barang.deskripsi,
                       style: TextStyle(
                         fontSize: 10,
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
                       "durasi sewa",
                       style: TextStyle(
-                        fontSize: 8,
+                        fontSize: 10,
                         fontWeight: FontWeight.w600,
+                        fontFamily: 'Poppins',
                         color: MyColors.bg,
                       ),
                     ),
@@ -126,7 +135,8 @@ class _KeranjangSewaState extends State<KeranjangSewa> {
                         ? Colors.green
                         : Colors.orange,
                     fontWeight: FontWeight.w600,
-                    fontSize: 8,
+                    fontFamily: 'Poppins',
+                    fontSize: 10,
                   ),
                 ),
               ),

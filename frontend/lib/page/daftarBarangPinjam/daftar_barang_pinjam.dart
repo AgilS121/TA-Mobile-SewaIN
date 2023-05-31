@@ -26,9 +26,10 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
           style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 18,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w700,
               color: Colors.black),
         ),
+        shadowColor: Color.fromARGB(0, 41, 41, 41).withOpacity(0.2),
       ),
       body: body(),
     );
@@ -60,13 +61,13 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
             children: [
               Container(
                 width: 355,
-                height: 90,
+                height: 110,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
+                      color: Colors.grey.withOpacity(0.2),
                       spreadRadius: 2,
                       blurRadius: 5,
                       offset: Offset(0, 3),
@@ -82,7 +83,14 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                       height: 94,
                       fit: BoxFit.cover,
                     ),
-                    title: Text(barangPinjam[index].namaBarang),
+                    title: Text(
+                      barangPinjam[index].namaBarang,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     subtitle: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,6 +98,7 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                         Text(
                           barangPinjam[index].namaToko,
                           style: TextStyle(
+                            fontFamily: 'Poppins',
                             fontSize: 10,
                             fontWeight: FontWeight.w700,
                           ),
@@ -97,7 +106,8 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                         Text(
                           barangPinjam[index].kategori,
                           style: TextStyle(
-                            fontSize: 9,
+                            fontFamily: 'Poppins',
+                            fontSize: 10,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -108,6 +118,7 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                           formatCurrency
                               .format(barangPinjam[index].hargaBarang),
                           style: TextStyle(
+                              fontFamily: 'Poppins',
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                               color: MyColors.bg),
