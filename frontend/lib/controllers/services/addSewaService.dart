@@ -25,10 +25,10 @@ class SewaService {
         "total_harga": total_harga
       });
 
-      print(id_barang);
-      print(durasi_sewa);
-      print(total_harga);
-      print(tokenManager.accessToken);
+      // print(id_barang);
+      // print(durasi_sewa);
+      // print(total_harga);
+      // print(tokenManager.accessToken);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         print('Penyewaan Behasil, Tunggu konfirmasi');

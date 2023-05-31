@@ -3,7 +3,8 @@ import 'package:frontend/penyewa/penyewa2.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class Penyewa extends StatefulWidget {
-  const Penyewa({super.key});
+  final String accesstoken;
+  const Penyewa({super.key, required this.accesstoken});
 
   @override
   State<Penyewa> createState() => _PenyewaState();
@@ -38,8 +39,12 @@ class _PenyewaState extends State<Penyewa> {
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.white),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PenyewaTwo()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PenyewaTwo(
+                                accesstoken: widget.accesstoken,
+                              )));
                 },
                 child: Text("Gabung",
                     style: TextStyle(

@@ -4,7 +4,8 @@ import 'package:frontend/penyewa/components/penyewaTwo_screen.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class PenyewaTwo extends StatefulWidget {
-  const PenyewaTwo({Key? key});
+  final String accesstoken;
+  const PenyewaTwo({Key? key, required this.accesstoken});
 
   @override
   State<PenyewaTwo> createState() => _PenyewaTwoState();
@@ -39,7 +40,9 @@ class _PenyewaTwoState extends State<PenyewaTwo> {
           Positioned.fill(
             top: 404,
             bottom: 0,
-            child: PenyewaTwoScreen(),
+            child: PenyewaTwoScreen(
+              accesstoken: widget.accesstoken,
+            ),
           ),
         ],
       ),

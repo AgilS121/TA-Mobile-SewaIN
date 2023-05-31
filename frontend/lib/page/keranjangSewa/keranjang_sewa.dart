@@ -51,10 +51,10 @@ class _KeranjangSewaState extends State<KeranjangSewa> {
               child: Container(
                 child: Row(
                   children: [
-                    Icon(Icons.arrow_back, color: MyColors.bg),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    // Icon(Icons.arrow_back, color: MyColors.bg),
+                    // SizedBox(
+                    //   width: 10,
+                    // ),
                     Text(
                       "Keranjang Sewa",
                       style: TextStyle(
@@ -82,9 +82,9 @@ class _KeranjangSewaState extends State<KeranjangSewa> {
         // print('ini data');
         // print(DataSewa.sewa[index].barang.nama_barang);
         // print(DataSewa.sewa[index].barang.deskripsi);
-        print(DataSewa.sewa[index].id_penyewa);
+        // print(DataSewa.sewa[index].id_penyewa);
         // print(DataSewa.sewa[index].id_barang);
-        print(DataSewa.sewa[index].status);
+        // print(DataSewa.sewa[index].status);
         // print(DataSewa.sewa[index].barang.image);
         if (DataSewa.sewa[index].status != 'Selesai') {
           return Card(

@@ -3,7 +3,8 @@ import 'package:frontend/page/mitraSewa/mitra_sewa.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class PenyewaTwoScreen extends StatefulWidget {
-  const PenyewaTwoScreen({super.key});
+  final String accesstoken;
+  const PenyewaTwoScreen({super.key, required this.accesstoken});
 
   @override
   State<PenyewaTwoScreen> createState() => _PenyewaTwoScreenState();
@@ -89,7 +90,9 @@ class _PenyewaTwoScreenState extends State<PenyewaTwoScreen> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MitraSewa()));
+                                builder: (context) => MitraSewa(
+                                      accesstoken: widget.accesstoken,
+                                    )));
                       }
                     },
                     child: Text(

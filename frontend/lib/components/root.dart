@@ -43,7 +43,14 @@ class _RootState extends State<Root> {
       RiwayatPeminjaman(
         accessToken: widget.accessToken,
       ),
-      if (widget.status == 'members') MitraSewa() else Penyewa(),
+      if (widget.status == 'members')
+        MitraSewa(
+          accesstoken: widget.accessToken,
+        )
+      else
+        Penyewa(
+          accesstoken: widget.accessToken,
+        ),
     ];
   }
 

@@ -4,7 +4,8 @@ import 'package:frontend/page/daftarBarangPinjam/daftar_barang_pinjam.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class MitraSewa extends StatefulWidget {
-  const MitraSewa({super.key});
+  final String accesstoken;
+  const MitraSewa({super.key, required this.accesstoken});
 
   @override
   State<MitraSewa> createState() => _MitraSewaState();
@@ -41,8 +42,12 @@ class _MitraSewaState extends State<MitraSewa> {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BarangSewa()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BarangSewa(
+                              accesstoken: widget.accesstoken,
+                            )));
               },
               child: Container(
                   width: 355,

@@ -52,10 +52,10 @@ class _RiwayatPeminjamanState extends State<RiwayatPeminjaman> {
                 child: Container(
               child: Row(
                 children: [
-                  Icon(color: MyColors.bg, Icons.arrow_back),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  // Icon(color: MyColors.bg, Icons.arrow_back),
+                  // SizedBox(
+                  //   width: 10,
+                  // ),
                   Text(
                     "Riwayat Sewa",
                     style: TextStyle(
