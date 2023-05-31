@@ -8,14 +8,14 @@ class HomeImageScreen extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          padding: EdgeInsets.only(left: 37, top: 120),
+          padding: EdgeInsets.only(left: 20, top: 120),
           child: Text(
-            "Mau Pinjam Apa Hari Ini ?", 
+            "Mau Pinjam Apa Hari Ini ?",
             style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 18,
-              color: Colors.white
-            ),
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Poppins',
+                fontSize: 15,
+                color: Colors.white),
           ),
         ),
         ClipRRect(

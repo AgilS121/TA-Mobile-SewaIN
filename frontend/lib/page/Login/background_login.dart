@@ -18,7 +18,7 @@ class _BackgroundLoginState extends State<BackgroundLogin> {
               // width: 317,
               // height: 317,
               padding:
-                  EdgeInsets.only(top: 60, left: 40, right: 40, bottom: 40),
+                  EdgeInsets.only(top: 60, left: 40, right: 40, bottom: 30),
               child: Image.asset("assets/images/login.png"),
             ),
           ),
