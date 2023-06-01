@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/controllers/services.dart';
 import 'package:frontend/controllers/services/dataBarangMember.dart';
 import 'package:frontend/models/barang.dart';
-import 'package:frontend/page/updateTambahBarang/update_tambah_barang.dart';
+import 'package:frontend/page/updateTambahBarang/editBarang.dart';
+import 'package:frontend/page/updateTambahBarang/tambahBarang.dart';
 import 'package:frontend/theme/pallete.dart';
 import 'package:intl/intl.dart';
 
@@ -160,7 +161,7 @@ class _BarangSewaState extends State<BarangSewa> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  updatetambahBarang()));
+                                                  EditBarang()));
                                     },
                                   ),
                                   PopupMenuItem(
@@ -202,7 +203,9 @@ class _BarangSewaState extends State<BarangSewa> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => updatetambahBarang()));
+                        builder: (context) => TambahBarang(
+                              accessToken: widget.accesstoken,
+                            )));
               },
               child: Icon(Icons.add),
               backgroundColor: MyColors.bg,
