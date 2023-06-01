@@ -31,6 +31,8 @@ class DurasiSewaPageState extends State<DurasiSewaPage> {
       for (var durasi in listDurasi) {
         String text = durasi.toString();
         text = text.replaceAll('[', '').replaceAll(']', '');
+        text = text.replaceAll('{', '').replaceAll('}', '');
+        text = text.replaceAll('text:', '');
         text = text.replaceAll('"', '');
         _durations.add({'id': id, 'text': text});
         id++;

@@ -5,17 +5,20 @@ import 'package:frontend/controllers/services.dart';
 import 'package:frontend/controllers/tokenManager.dart';
 import 'package:http/http.dart' as http;
 
-class UsersService {
-  static Future<void> users(
-    BuildContext context,
-    int id,
-    String name,
-    String alamat,
-    String no_telp,
-    String email,
-    String accessToken,
-  ) async {
-    final url = Constans.apiUrl + '/users/$id';
+class EditBarangMember {
+  static Future<void> barangMember(
+      BuildContext context,
+      BigInt id,
+      String id_kategori,
+      String id_subkategori,
+      String nama_barang,
+      String deskripsi,
+      String image,
+      String stok,
+      String harga,
+      String durasi_sewa,
+      String accessToken) async {
+    final url = Constans.apiUrl + '/barang/$id';
     final tokenManager = TokenManager();
     tokenManager.accessToken = accessToken;
     final headers = {
@@ -23,32 +26,25 @@ class UsersService {
       'Authorization': 'Bearer ${tokenManager.accessToken}'
     };
 
-    // print('id : $id');
-    // print('id : $name');
-    // print('id : $alamat');
-    // print('id : $no_telp');
-    // print('id : $email');
-    // print('id : ${tokenManager.accessToken}');
-    // print('url : $url');
-
     try {
-      final response = await http.patch(
-        Uri.parse(url),
-        headers: headers,
-        body: {
-          'name': name,
-          'no_telp': no_telp,
-          'alamat': alamat,
-          'email': email,
-        },
-      );
+      final response =
+          await http.patch(Uri.parse(url), headers: headers, body: {
+        "id_kategori": id_kategori,
+        "id_subkategori": id_subkategori,
+        "nama_barang": nama_barang,
+        "deskripsi": deskripsi,
+        "image": image,
+        "stok": stok,
+        "harga": harga,
+        "durasi_sewa": durasi_sewa
+      });
 
-      if (response.statusCode == 200) {
-        print('Update data users berhasil');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('Update data barang berhasil');
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Update Data User Berhasil'),
+            title: Text('Update Data Barang Berhasil'),
             content: Text('Data Anda Telah Diupdate'),
             actions: <Widget>[
               TextButton(
@@ -62,14 +58,15 @@ class UsersService {
         );
         final responseData = jsonDecode(response.body);
       } else {
-        print('Update data users gagal: ${response.statusCode}');
+        print(
+            'Update data users gagal: ${response.statusCode} || ${response.body}');
       }
     } catch (e) {
       print('Error: $e');
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Register Gagal'),
+          title: Text('Data Barang Gagal'),
           content: Text('Ada Kesalahan Jaringan nih'),
           actions: [
             TextButton(

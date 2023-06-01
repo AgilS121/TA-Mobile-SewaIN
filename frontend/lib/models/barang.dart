@@ -5,8 +5,8 @@ import 'members.dart';
 
 class Barang {
   final BigInt id;
-  final BigInt id_kategori;
-  final BigInt id_subkategori;
+  final int id_kategori;
+  final int id_subkategori;
   final BigInt id_member;
   final String nama_barang;
   final String deskripsi;
@@ -34,8 +34,8 @@ class Barang {
   factory Barang.fromJson(Map<String, dynamic> json) {
     return Barang(
       id: BigInt.from(json['id'] ?? 0),
-      id_kategori: BigInt.from(json['id_kategori'] ?? 0),
-      id_subkategori: BigInt.from(json['id_subkategori'] ?? 0),
+      id_kategori: json['id_kategori'] ?? 0,
+      id_subkategori: json['id_subkategori'] ?? 0,
       id_member: BigInt.from(json['id_member'] ?? 0),
       nama_barang: json['nama_barang'] ?? '',
       deskripsi: json['deskripsi'] ?? '',

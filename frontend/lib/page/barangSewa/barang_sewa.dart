@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/button_melayang.dart';
 import 'package:frontend/controllers/services.dart';
 import 'package:frontend/controllers/services/dataBarangMember.dart';
+import 'package:frontend/controllers/services/deleteBarangMember.dart';
 import 'package:frontend/models/barang.dart';
 import 'package:frontend/page/updateTambahBarang/editBarang.dart';
 import 'package:frontend/page/updateTambahBarang/tambahBarang.dart';
@@ -9,7 +11,7 @@ import 'package:intl/intl.dart';
 
 class BarangSewa extends StatefulWidget {
   final String accesstoken;
-  const BarangSewa({super.key, required this.accesstoken});
+  const BarangSewa({Key? key, required this.accesstoken});
 
   @override
   State<BarangSewa> createState() => _BarangSewaState();
@@ -156,38 +158,77 @@ class _BarangSewaState extends State<BarangSewa> {
                                 ),
                                 items: [
                                   PopupMenuItem(
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.edit, color: Colors.blue),
-                                        SizedBox(width: 5),
-                                        Text('Edit',
-                                            style:
-                                                TextStyle(color: Colors.blue)),
-                                      ],
+                                    padding: EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      child: FloatingActionButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => EditBarang(
+                                                accessToken: widget.accesstoken,
+                                                listbarang: {
+                                                  "id": BarangMemberService
+                                                      .barangmember[index].id,
+                                                  "nama_barang":
+                                                      BarangMemberService
+                                                          .barangmember[index]
+                                                          .nama_barang,
+                                                  "deskripsi":
+                                                      BarangMemberService
+                                                          .barangmember[index]
+                                                          .deskripsi,
+                                                  "durasi_sewa":
+                                                      BarangMemberService
+                                                          .barangmember[index]
+                                                          .durasi_sewa,
+                                                  "image": BarangMemberService
+                                                      .barangmember[index]
+                                                      .image,
+                                                  "harga": BarangMemberService
+                                                      .barangmember[index]
+                                                      .harga,
+                                                  "stok": BarangMemberService
+                                                      .barangmember[index].stok,
+                                                  "kategori":
+                                                      BarangMemberService
+                                                          .barangmember[index]
+                                                          .id_kategori,
+                                                  "subkategori":
+                                                      BarangMemberService
+                                                          .barangmember[index]
+                                                          .id_subkategori,
+                                                },
+                                              ),
+                                            ),
+                                          );
+                                          // print(
+                                          //     'kategori ${BarangMemberService.barangmember[index].id_kategori}');
+                                        },
+                                        child: Icon(Icons.edit,
+                                            color: Colors.blue),
+                                        backgroundColor: Colors.white,
+                                        foregroundColor: Colors.blue,
+                                      ),
                                     ),
-                                    onTap: () {
-                                      // Tambahkan kode untuk aksi edit barang
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EditBarang()));
-                                    },
                                   ),
                                   PopupMenuItem(
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.delete, color: Colors.red),
-                                        SizedBox(width: 5),
-                                        Text('Delete',
-                                            style:
-                                                TextStyle(color: Colors.red)),
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      // Tambahkan kode untuk aksi hapus barang
-                                    },
-                                  ),
+                                      padding: EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        child: FloatingActionButton(
+                                          onPressed: () {
+                                            showDeleteConfirmation(
+                                                context,
+                                                BarangMemberService
+                                                    .barangmember[index].id
+                                                    .toString());
+                                          },
+                                          child: Icon(Icons.delete,
+                                              color: Colors.red),
+                                          backgroundColor: Colors.white,
+                                          foregroundColor: Colors.red,
+                                        ),
+                                      )),
                                 ],
                               );
                             },
@@ -223,6 +264,34 @@ class _BarangSewaState extends State<BarangSewa> {
           )
         ],
       ),
+    );
+  }
+
+  void showDeleteConfirmation(BuildContext context, String id) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Konfirmasi Hapus'),
+          content: Text('Apakah Anda yakin ingin menghapus data ini?'),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context); // Tutup dialog konfirmasi
+                DeleteBarangMember.deleteBarang(context, id,
+                    widget.accesstoken); // Panggil fungsi deleteBarang
+              },
+              child: Text('Ya'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context); // Tutup dialog konfirmasi
+              },
+              child: Text('Tidak'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
