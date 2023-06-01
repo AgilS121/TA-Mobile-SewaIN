@@ -19,7 +19,7 @@ class _MitraSewaState extends State<MitraSewa> {
       appBar: AppBar(
           backgroundColor: MyColors.bottombar,
           elevation: 16,
-          shadowColor: Colors.grey,
+          shadowColor: Color.fromARGB(0, 41, 41, 41).withOpacity(0.2),
           iconTheme: IconThemeData(color: MyColors.bg),
           title: Text(
             "Mitra Sewa.in",
@@ -57,7 +57,7 @@ class _MitraSewaState extends State<MitraSewa> {
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
+                        color: Colors.grey.withOpacity(0.2),
                         spreadRadius: 2,
                         blurRadius: 5,
                         offset: Offset(0, 3),
@@ -87,7 +87,7 @@ class _MitraSewaState extends State<MitraSewa> {
                   )),
             ),
             SizedBox(
-              height: 10,
+              height: 23,
             ),
             GestureDetector(
               onTap: () {
@@ -104,7 +104,7 @@ class _MitraSewaState extends State<MitraSewa> {
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
+                        color: Colors.grey.withOpacity(0.2),
                         spreadRadius: 2,
                         blurRadius: 5,
                         offset: Offset(0, 3),
@@ -115,7 +115,7 @@ class _MitraSewaState extends State<MitraSewa> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 25,
+                        width: 15,
                       ),
                       Image.asset(
                         "assets/images/Group 8.png",

@@ -64,28 +64,38 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 46,
                   fit: BoxFit.cover,
                 ),
-                title: Text(HomeService.barang[index].nama_barang),
+                title: Text(HomeService.barang[index].nama_barang,
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w700)),
                 subtitle: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       HomeService.barang[index].deskripsi,
-                      style:
-                          TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600),
                     ),
                     Text(
                       HomeService.barang[index].kategori.nama_kategori,
-                      style:
-                          TextStyle(fontSize: 8, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                          fontSize: 8,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     Text(
                       formatCurrency.format(HomeService.barang[index].harga),
-                      style:
-                          TextStyle(fontSize: 8, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600),
                     )
                   ],
                 ),
@@ -120,7 +130,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       print('Error: $e');
                     }
                   },
-                  child: Text("Sewa"),
+                  child: Text("Sewa",
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13)),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(MyColors.bg),
+                  ),
                 ),
               ),
             ));
