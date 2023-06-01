@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controllers/services/gabungMemberService.dart';
 import 'package:frontend/page/mitraSewa/mitra_sewa.dart';
 import 'package:frontend/theme/pallete.dart';
 
@@ -86,14 +87,8 @@ class _PenyewaTwoScreenState extends State<PenyewaTwoScreen> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_isValidForm()) {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MitraSewa(
-                                      accesstoken: widget.accesstoken,
-                                    )));
-                      }
+                      Join.regisMember(context, namaTempat.text, Lokasi.text,
+                          noWA.text, widget.accesstoken);
                     },
                     child: Text(
                       "Gabung",

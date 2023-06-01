@@ -29,10 +29,9 @@ class LoginService {
         final responseData = jsonDecode(response.body);
         final accessToken = responseData['access_token'];
         print(accessToken);
-        // print('data login');
-        // print(response.body);
-        final status = responseData['member']['status'];
-        // print(status);
+
+        final memberData = responseData['member'];
+        final status = memberData != null ? memberData['status'] ?? '' : '';
 
         Navigator.pushReplacement(
           context,
