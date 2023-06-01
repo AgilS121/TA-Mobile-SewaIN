@@ -51,6 +51,7 @@ class _BarangSewaState extends State<BarangSewa> {
               fontWeight: FontWeight.w800,
               color: Colors.black),
         ),
+        shadowColor: Color.fromARGB(0, 41, 41, 41).withOpacity(0.2),
       ),
       body: body(),
     );
@@ -80,7 +81,7 @@ class _BarangSewaState extends State<BarangSewa> {
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
+                            color: Colors.grey.withOpacity(0.2),
                             spreadRadius: 2,
                             blurRadius: 5,
                             offset: Offset(0, 3),
@@ -97,8 +98,14 @@ class _BarangSewaState extends State<BarangSewa> {
                             height: 94,
                             fit: BoxFit.cover,
                           ),
-                          title: Text(BarangMemberService
-                              .barangmember[index].nama_barang),
+                          title: Text(
+                            BarangMemberService.barangmember[index].nama_barang,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                           subtitle: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,6 +114,7 @@ class _BarangSewaState extends State<BarangSewa> {
                                 BarangMemberService
                                     .barangmember[index].member.nama_tempat,
                                 style: TextStyle(
+                                  fontFamily: 'Poppins',
                                   fontSize: 10,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -115,7 +123,8 @@ class _BarangSewaState extends State<BarangSewa> {
                                 BarangMemberService
                                     .barangmember[index].kategori.nama_kategori,
                                 style: TextStyle(
-                                  fontSize: 9,
+                                  fontFamily: 'Poppins',
+                                  fontSize: 10,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -126,6 +135,7 @@ class _BarangSewaState extends State<BarangSewa> {
                                 formatCurrency.format(BarangMemberService
                                     .barangmember[index].harga),
                                 style: TextStyle(
+                                    fontFamily: 'Poppins',
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                     color: MyColors.bg),

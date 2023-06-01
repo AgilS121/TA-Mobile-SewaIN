@@ -43,7 +43,7 @@ class _RiwayatPeminjamanState extends State<RiwayatPeminjaman> {
       appBar: AppBar(
         backgroundColor: MyColors.bottombar,
         elevation: 16,
-        shadowColor: Colors.grey,
+        shadowColor: Color.fromARGB(0, 41, 41, 41).withOpacity(0.2),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +63,7 @@ class _RiwayatPeminjamanState extends State<RiwayatPeminjaman> {
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         fontFamily: 'Poppins'),
-                  )
+                  ),
                 ],
               ),
             )),
@@ -89,30 +89,42 @@ class _RiwayatPeminjamanState extends State<RiwayatPeminjaman> {
                 height: 46,
                 fit: BoxFit.cover,
               ),
-              title: Text(DataSewa.sewa[index].barang.nama_barang),
+              title: Text(
+                DataSewa.sewa[index].barang.nama_barang,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               subtitle: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     DataSewa.sewa[index].barang.deskripsi,
-                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600),
                   ),
                   Text(
                     "durasi sewa",
                     style: TextStyle(
-                        fontSize: 8,
+                        fontSize: 10,
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
                         color: MyColors.bg),
-                  )
+                  ),
                 ],
               ),
               trailing: Text(
                 DataSewa.sewa[index].status,
                 style: TextStyle(
                     color: MyColors.text,
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
-                    fontSize: 8),
+                    fontSize: 10),
               ),
             ),
           ));
