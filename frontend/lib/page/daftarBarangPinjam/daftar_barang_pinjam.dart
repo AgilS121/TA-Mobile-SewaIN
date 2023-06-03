@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controllers/services.dart';
+import 'package:frontend/controllers/services/daftarBarangdipinjamservice.dart';
+import 'package:frontend/models/barang.dart';
 import 'package:frontend/theme/pallete.dart';
 import 'package:intl/intl.dart';
-
 import '../../models/barangPinjam.dart';
 
 class DaftarBarangPinjam extends StatefulWidget {
-  const DaftarBarangPinjam({super.key});
+  final String accesstoken;
+  const DaftarBarangPinjam({super.key, required this.accesstoken});
 
   @override
   State<DaftarBarangPinjam> createState() => _DaftarBarangPinjamState();
@@ -14,6 +17,17 @@ class DaftarBarangPinjam extends StatefulWidget {
 class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
   final formatCurrency =
       NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
+  void fetchData() async{
+    try{
+      final List<Barang> data=
+          await daftarBarangdipinjamservice.fetchBarangMember(widget.accesstoken);
+      setState(() {
+        daftarBarangdipinjamservice.barangmember = data;
+      });
+    } catch (e){
+      print("gagal mengambil data : $e");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,22 +53,22 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
     return Padding(
       padding: EdgeInsets.all(20.0),
       child: ListView.builder(
-        itemCount: barangPinjam.length,
+        itemCount: daftarBarangdipinjamservice.barangmember.length,
         itemBuilder: (BuildContext context, int index) {
           Color statusColor;
-          switch (barangPinjam[index].status) {
-            case 'Berlangsung':
-              statusColor = Colors.grey;
-              break;
-            case 'Konfirmasi':
-              statusColor = Colors.blue;
-              break;
-            case 'Selesai':
-              statusColor = Colors.green;
-              break;
-            default:
-              statusColor = Colors.white;
-          }
+          // switch (daftarBarangdipinjamservice.barangmember[index]//.status) {
+          //   case 'Berlangsung':
+          //     statusColor = Colors.grey;
+          //     break;
+          //   case 'Konfirmasi':
+          //     statusColor = Colors.blue;
+          //     break;
+          //   case 'Selesai':
+          //     statusColor = Colors.green;
+          //     break;
+          //   default:
+          //     statusColor = Colors.white;
+          // }
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -78,7 +92,8 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: ListTile(
                     leading: Image.network(
-                      barangPinjam[index].gambar,
+                      Constans.imageUrl +
+                          daftarBarangdipinjamservice.barangmember[index].image,
                       width: 94,
                       height: 94,
                       fit: BoxFit.cover,
@@ -128,9 +143,7 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                     trailing: Container(
                       width: 63,
                       height: 17,
-                      decoration: BoxDecoration(
-                        color: statusColor,
-                      ),
+                      // 
                       child: Center(
                         child: Text(
                           barangPinjam[index].status,
