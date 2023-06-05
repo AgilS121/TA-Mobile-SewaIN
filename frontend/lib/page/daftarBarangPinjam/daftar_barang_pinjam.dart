@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controllers/services.dart';
+import 'package:frontend/controllers/services/daftarBarangdipinjamservice.dart';
+import 'package:frontend/models/barang.dart';
+import 'package:frontend/models/sewas.dart';
 import 'package:frontend/theme/pallete.dart';
 import 'package:intl/intl.dart';
-
 import '../../models/barangPinjam.dart';
 
 class DaftarBarangPinjam extends StatefulWidget {
-  const DaftarBarangPinjam({super.key});
+  final String accesstoken;
+  const DaftarBarangPinjam({super.key, required this.accesstoken});
 
   @override
   State<DaftarBarangPinjam> createState() => _DaftarBarangPinjamState();
@@ -14,6 +18,23 @@ class DaftarBarangPinjam extends StatefulWidget {
 class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
   final formatCurrency =
       NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
+  void fetchData() async {
+    try {
+      final List<Sewa> data = await daftarBarangdipinjamservice
+          .fetchBarangMember(widget.accesstoken);
+      setState(() {
+        daftarBarangdipinjamservice.sewamember = data;
+      });
+    } catch (e) {
+      print("gagal mengambil data : $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +58,16 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
   }
 
   body() {
+    print('ini data barang pinjam member');
+    print(daftarBarangdipinjamservice.sewamember);
     return Padding(
       padding: EdgeInsets.all(20.0),
       child: ListView.builder(
-        itemCount: barangPinjam.length,
+        itemCount: daftarBarangdipinjamservice.sewamember.length,
         itemBuilder: (BuildContext context, int index) {
           Color statusColor;
-          switch (barangPinjam[index].status) {
-            case 'Berlangsung':
+          switch (daftarBarangdipinjamservice.sewamember[index].status) {
+            case 'Sudah':
               statusColor = Colors.grey;
               break;
             case 'Konfirmasi':
@@ -52,6 +75,9 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
               break;
             case 'Selesai':
               statusColor = Colors.green;
+              break;
+            case 'Belum':
+              statusColor = Colors.red;
               break;
             default:
               statusColor = Colors.white;
@@ -79,13 +105,17 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: ListTile(
                     leading: Image.network(
-                      barangPinjam[index].gambar,
+                      Constans.imageUrl +
+                          daftarBarangdipinjamservice
+                              .sewamember[index].barang.image,
                       width: 94,
                       height: 94,
                       fit: BoxFit.cover,
                     ),
                     title: Text(
-                      barangPinjam[index].namaBarang,
+                      'Nama Barang : ' +
+                          daftarBarangdipinjamservice
+                              .sewamember[index].barang.nama_barang,
                       style: TextStyle(
                         fontSize: 12,
                         fontFamily: 'Poppins',
@@ -97,7 +127,10 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          barangPinjam[index].namaToko,
+                          'Penyewa : ' +
+                              daftarBarangdipinjamservice
+                                  .sewamember[index].user.name
+                                  .toString(),
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 10,
@@ -105,7 +138,11 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                           ),
                         ),
                         Text(
-                          barangPinjam[index].kategori,
+                          'Durasi : ' +
+                              daftarBarangdipinjamservice
+                                  .sewamember[index].durasi_sewa
+                                  .toString() +
+                              'hari',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 10,
@@ -116,8 +153,9 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                           height: 5,
                         ),
                         Text(
-                          formatCurrency
-                              .format(barangPinjam[index].hargaBarang),
+                          'Harga : ' +
+                              formatCurrency.format(daftarBarangdipinjamservice
+                                  .sewamember[index].total_harga),
                           style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 10,
@@ -131,15 +169,17 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                       height: 17,
                       decoration: BoxDecoration(
                         color: statusColor,
+                        borderRadius: BorderRadius.circular(5),
                       ),
                       child: Center(
                         child: Text(
-                          barangPinjam[index].status,
+                          daftarBarangdipinjamservice.sewamember[index].status,
                           style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 8,
-                              fontFamily: 'Poppins'),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 8,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
                       ),
                     ),

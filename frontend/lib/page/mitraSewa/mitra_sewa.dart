@@ -94,7 +94,7 @@ class _MitraSewaState extends State<MitraSewa> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DaftarBarangPinjam()));
+                        builder: (context) => DaftarBarangPinjam(accesstoken:widget.accesstoken)));
               },
               child: Container(
                   width: 355,
