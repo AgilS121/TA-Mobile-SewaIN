@@ -14,6 +14,7 @@ class DaftarBarangPinjam extends StatefulWidget {
 class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
   final formatCurrency =
       NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
