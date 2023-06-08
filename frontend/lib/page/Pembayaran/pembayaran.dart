@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/profile_box.dart';
 import 'package:frontend/page/Pembayaran/components/pembayaran_image_screen.dart';
 import 'package:frontend/page/Pembayaran/components/pembayaran_screen.dart';
-import 'package:frontend/page/home/components/home_image_screen.dart';
-import 'package:frontend/page/home/components/home_screen.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class Pembayaran extends StatefulWidget {
-  const Pembayaran({super.key});
+  final String accessToken;
+  final Map databarang;
+  final Map datasewa;
+  const Pembayaran({
+    Key? key,
+    required this.accessToken,
+    required this.databarang,
+    required this.datasewa,
+  }) : super(key: key);
 
   @override
   State<Pembayaran> createState() => _PembayaranState();
@@ -16,6 +21,7 @@ class Pembayaran extends StatefulWidget {
 class _PembayaranState extends State<Pembayaran> {
   @override
   Widget build(BuildContext context) {
+    // print("ini data dari halaman sewa ${widget.databarang['id']}");
     return Scaffold(
       backgroundColor: MyColors.bg,
       appBar: AppBar(
@@ -25,24 +31,25 @@ class _PembayaranState extends State<Pembayaran> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-                child: Container(
-              child: Row(
-                children: [
-                  Icon(color: Colors.white, Icons.arrow_back),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Pilih Metode Pembayaran",
-                    style: TextStyle(
+              child: Container(
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Pilih Metode Pembayaran",
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
-                        fontFamily: 'Poppins'),
-                  )
-                ],
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -50,17 +57,28 @@ class _PembayaranState extends State<Pembayaran> {
     );
   }
 
-  body() {
+  Widget body() {
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Flexible(
-            flex: 1,
-            fit: FlexFit.loose,
-            child: PembayaranImageScreen(),
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Flexible(
+          flex: 1,
+          fit: FlexFit.loose,
+          child: PembayaranImageScreen(),
+        ),
+        Flexible(
+          flex: 2,
+          child: PembayaranScreen(
+            accessToken: widget.accessToken,
+            databarang: {
+              "id": widget.databarang['id'],
+              "nama_barang": widget.databarang['nama_barang'],
+              "total_harga": widget.databarang['total_harga'],
+            },
           ),
-          Flexible(flex: 2, child: PembayaranScreen())
-        ]);
+        ),
+      ],
+    );
   }
 }

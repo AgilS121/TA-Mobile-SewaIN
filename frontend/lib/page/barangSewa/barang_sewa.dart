@@ -94,13 +94,23 @@ class _BarangSewaState extends State<BarangSewa> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 8),
                         child: ListTile(
-                          leading: Image.network(
-                            Constans.imageUrl +
-                                BarangMemberService.barangmember[index].image,
-                            width: 94,
-                            height: 94,
-                            fit: BoxFit.cover,
-                          ),
+                          leading:
+                              BarangMemberService.barangmember[index].image !=
+                                      null
+                                  ? Image.network(
+                                      Constans.imageUrl +
+                                          BarangMemberService
+                                              .barangmember[index].image!,
+                                      width: 94,
+                                      height: 94,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.asset(
+                                      'assets/images/default.png',
+                                      width: 94,
+                                      height: 94,
+                                      fit: BoxFit.cover,
+                                    ),
                           title: Text(
                             BarangMemberService.barangmember[index].nama_barang,
                             style: TextStyle(

@@ -3,6 +3,7 @@ import 'package:frontend/components/root.dart';
 import 'package:frontend/controllers/services/addSewaService.dart';
 import 'package:frontend/controllers/services/homeService.dart';
 import 'package:frontend/models/barang.dart';
+import 'package:frontend/page/Pembayaran/pembayaran.dart';
 import 'package:frontend/page/halamanSewa/components/durasi_sewa.dart';
 import 'package:frontend/page/halamanSewa/components/image_halaman_sewa.dart';
 import 'package:frontend/theme/pallete.dart';
@@ -260,12 +261,14 @@ class _HalamanSewaState extends State<HalamanSewa> {
                   width: 351,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () => SewaService.sewa(
-                        context,
-                        idbarangstring,
-                        _selectedDuration.toString(),
-                        hargatotal.toString(),
-                        widget.accessToken),
+                    onPressed: () {
+                      SewaService.sewa(
+                          context,
+                          idbarangstring,
+                          _selectedDuration.toString(),
+                          hargatotal.toString(),
+                          widget.accessToken);
+                    },
                     child: Text(
                       "Sewa",
                       style: TextStyle(

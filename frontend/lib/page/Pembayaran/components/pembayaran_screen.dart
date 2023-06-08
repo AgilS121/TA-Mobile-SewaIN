@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/page/Pembayaran/components/pembayarandetail.dart';
 import 'package:frontend/theme/pallete.dart';
 
 class PembayaranScreen extends StatefulWidget {
-  const PembayaranScreen({super.key});
+  final String accessToken;
+  final Map databarang;
+  const PembayaranScreen(
+      {super.key, required this.accessToken, required this.databarang});
 
   @override
   State<PembayaranScreen> createState() => _PembayaranScreenState();
@@ -152,7 +156,7 @@ class _PembayaranScreenState extends State<PembayaranScreen> {
             padding: EdgeInsets.all(10.0),
             child: ElevatedButton(
               onPressed: () {
-                // implement your action here
+                _navigateToPembayaranDetail(context);
               },
               child: Text('Bayar',
                   style: TextStyle(
@@ -163,6 +167,22 @@ class _PembayaranScreenState extends State<PembayaranScreen> {
           )
         ],
       ),
+    );
+  }
+
+  void _navigateToPembayaranDetail(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => PembayaranDetailScreen(
+                databarang: {
+                  "id": widget.databarang['id'],
+                  "nama_barang": widget.databarang['nama_barang'],
+                  "total_harga": widget.databarang['total_harga']
+                },
+                paymentMethod: _paymentMethod,
+                accessToken: widget.accessToken,
+              )),
     );
   }
 }

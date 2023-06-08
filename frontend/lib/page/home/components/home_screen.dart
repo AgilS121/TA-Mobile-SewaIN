@@ -22,16 +22,24 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final formatCurrency =
       NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
-  void fetchData() async {
+  Future<List<Barang>> fetchData() async {
     try {
       final List<Barang> data = await HomeService.fetchBarang();
-      setState(() {
-        HomeService.barang = data;
-      });
+      return data;
     } catch (e) {
       print('Gagal mengambil data: $e');
+      return [];
     }
+  }
+
+  Future<void> _refreshData() async {
+    final data = await fetchData();
+    setState(() {
+      HomeService.barang = data;
+    });
   }
 
   @override
@@ -42,106 +50,114 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        color: MyColors.bghome,
-        child: ListView.builder(
-          itemCount: HomeService.barang.length,
-          itemBuilder: (BuildContext context, int index) {
-            print("ini durrasi");
-            print(HomeService.barang[index].durasi_sewa);
-            String tampungImage = HomeService.barang[index].image;
-            print('$tampungImage');
-            BigInt dataid = HomeService.barang[index].id;
-            print('$dataid');
-            return Card(
-                child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              child: ListTile(
-                leading: Image.network(
-                  // 'https://sewain13.000webhostapp.com/images/VNieEctyqZ4zV1DWOOBkb6gEXTFVKk.png',
-                  Constans.imageUrl + tampungImage,
-                  width: 46,
-                  height: 46,
-                  fit: BoxFit.cover,
-                ),
-                title: Text(HomeService.barang[index].nama_barang,
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w700)),
-                subtitle: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      HomeService.barang[index].deskripsi,
+    return RefreshIndicator(
+      key: _refreshIndicatorKey,
+      onRefresh: _refreshData,
+      child: Card(
+          color: MyColors.bghome,
+          child: ListView.builder(
+            itemCount: HomeService.barang.length,
+            itemBuilder: (BuildContext context, int index) {
+              print("ini durrasi");
+              print(HomeService.barang[index].durasi_sewa);
+              String tampungImage = HomeService.barang[index].image;
+              print('$tampungImage');
+              BigInt dataid = HomeService.barang[index].id;
+              print('$dataid');
+              return Card(
+                  child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                child: ListTile(
+                  leading: Image.network(
+                    // 'https://sewain13.000webhostapp.com/images/VNieEctyqZ4zV1DWOOBkb6gEXTFVKk.png',
+                    tampungImage != null
+                        ? Constans.imageUrl + tampungImage
+                        : 'https://assets.weeblr.net/images/products/sh404sef/2015-10-14/medium/joomla-404-error-page.png',
+                    width: 46,
+                    height: 46,
+                    fit: BoxFit.cover,
+                  ),
+                  title: Text(HomeService.barang[index].nama_barang,
                       style: TextStyle(
-                          fontSize: 10,
+                          fontSize: 12,
                           fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600),
-                    ),
-                    Text(
-                      HomeService.barang[index].kategori.nama_kategori,
-                      style: TextStyle(
-                          fontSize: 8,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      formatCurrency.format(HomeService.barang[index].harga),
-                      style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600),
-                    )
-                  ],
-                ),
-                trailing: ElevatedButton(
-                  onPressed: () async {
-                    final barang = await HomeService.fetchDetailBarang(dataid);
-                    print('Ini barang: $barang');
-                    try {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HalamanSewa(
-                            listbarang: {
-                              "id": HomeService.barang[index].id,
-                              "nama_barang":
-                                  HomeService.barang[index].nama_barang,
-                              "deskripsi": HomeService.barang[index].deskripsi,
-                              "durasi_sewa":
-                                  HomeService.barang[index].durasi_sewa,
-                              "image": HomeService.barang[index].image,
-                              "nama_toko":
-                                  HomeService.barang[index].member.nama_tempat,
-                              "harga": HomeService.barang[index].harga
-                            },
-                            accessToken: widget.accessToken,
-                            status: widget.status,
+                          fontWeight: FontWeight.w700)),
+                  subtitle: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        HomeService.barang[index].deskripsi,
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        HomeService.barang[index].kategori.nama_kategori,
+                        style: TextStyle(
+                            fontSize: 8,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        formatCurrency.format(HomeService.barang[index].harga),
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600),
+                      )
+                    ],
+                  ),
+                  trailing: ElevatedButton(
+                    onPressed: () async {
+                      final barang =
+                          await HomeService.fetchDetailBarang(dataid);
+                      print('Ini barang: $barang');
+                      try {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HalamanSewa(
+                              listbarang: {
+                                "id": HomeService.barang[index].id,
+                                "nama_barang":
+                                    HomeService.barang[index].nama_barang,
+                                "deskripsi":
+                                    HomeService.barang[index].deskripsi,
+                                "durasi_sewa":
+                                    HomeService.barang[index].durasi_sewa,
+                                "image": HomeService.barang[index].image,
+                                "nama_toko": HomeService
+                                    .barang[index].member.nama_tempat,
+                                "harga": HomeService.barang[index].harga
+                              },
+                              accessToken: widget.accessToken,
+                              status: widget.status,
+                            ),
                           ),
-                        ),
-                      );
-                    } catch (e) {
-                      // Tangani kesalahan
-                      print('Error: $e');
-                    }
-                  },
-                  child: Text("Sewa",
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13)),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(MyColors.bg),
+                        );
+                      } catch (e) {
+                        // Tangani kesalahan
+                        print('Error: $e');
+                      }
+                    },
+                    child: Text("Sewa",
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13)),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(MyColors.bg),
+                    ),
                   ),
                 ),
-              ),
-            ));
-          },
-        ));
+              ));
+            },
+          )),
+    );
   }
 }

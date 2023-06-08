@@ -45,34 +45,35 @@ class _HomePageState extends State<HomePage> {
   }
 
   body() {
-    return SingleChildScrollView(
-        child: SizedBox(
-      height: MediaQuery.of(context).size.height,
-      child: Column(children: [
-        Expanded(
-            child: Stack(
-          children: <Widget>[
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Container(child: HomeImageScreen()),
-            ),
-            Positioned(
-              top: 260,
-              left: 0,
-              right: 0,
-              height: 700,
-              child: Container(
-                  color: MyColors.bghome,
-                  child: HomeScreen(
-                    accessToken: widget.accessToken,
-                    status: widget.status,
-                  )),
-            ),
-          ],
-        ))
-      ]),
-    ));
+    return ListView(children: [
+      SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Column(children: [
+          Expanded(
+              child: Stack(
+            children: <Widget>[
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(child: HomeImageScreen()),
+              ),
+              Positioned(
+                top: 260,
+                left: 0,
+                right: 0,
+                height: 700,
+                child: Container(
+                    color: MyColors.bghome,
+                    child: HomeScreen(
+                      accessToken: widget.accessToken,
+                      status: widget.status,
+                    )),
+              ),
+            ],
+          ))
+        ]),
+      ),
+    ]);
   }
 }
