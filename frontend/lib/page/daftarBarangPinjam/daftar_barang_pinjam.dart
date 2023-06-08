@@ -88,7 +88,7 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
             children: [
               Container(
                 width: 355,
-                height: 110,
+                height: 120,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -108,12 +108,12 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                       Constans.imageUrl +
                           daftarBarangdipinjamservice
                               .sewamember[index].barang.image,
-                      width: 94,
-                      height: 94,
+                      width: 60,
+                      height: 60,
                       fit: BoxFit.cover,
                     ),
                     title: Text(
-                      'Nama Barang : ' +
+                      '' +
                           daftarBarangdipinjamservice
                               .sewamember[index].barang.nama_barang,
                       style: TextStyle(
@@ -142,7 +142,7 @@ class _DaftarBarangPinjamState extends State<DaftarBarangPinjam> {
                               daftarBarangdipinjamservice
                                   .sewamember[index].durasi_sewa
                                   .toString() +
-                              'hari',
+                              ' hari',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 10,
