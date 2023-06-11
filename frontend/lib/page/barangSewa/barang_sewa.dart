@@ -271,7 +271,7 @@ class _BarangSewaState extends State<BarangSewa> {
               child: Icon(Icons.add),
               backgroundColor: MyColors.bg,
             ),
-          )
+          ),
         ],
       ),
     );

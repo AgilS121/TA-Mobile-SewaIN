@@ -35,6 +35,7 @@ class _ImageProfileState extends State<ImageProfile> {
   @override
   Widget build(BuildContext context) {
     print('userData: $userData');
+    print('data nama ${userData?.user.name}');
     return Container(
       width: double.infinity,
       height: 200,
