@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controllers/services.dart';
 import 'package:frontend/controllers/services/meService.dart';
 import 'package:frontend/models/members.dart';
 import 'package:frontend/models/users.dart';
@@ -35,7 +36,7 @@ class _ImageProfileState extends State<ImageProfile> {
   @override
   Widget build(BuildContext context) {
     print('userData: $userData');
-    print('data nama ${userData?.user.name}');
+    print('data nama ${userData?.user?.name}');
     return Container(
       width: double.infinity,
       height: 200,
@@ -47,7 +48,7 @@ class _ImageProfileState extends State<ImageProfile> {
           ),
           SizedBox(height: 10),
           Text(
-            userData?.user.name ?? 'John Doe',
+            userData?.user?.name ?? 'John Doe',
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -56,7 +57,7 @@ class _ImageProfileState extends State<ImageProfile> {
           ),
           SizedBox(height: 5),
           Text(
-            userData?.user.email ?? 'Software Engineer',
+            userData?.user?.email ?? 'Software Engineer',
             style: TextStyle(
               fontSize: 16,
               color: Colors.white,
