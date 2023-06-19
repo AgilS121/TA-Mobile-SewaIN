@@ -170,19 +170,15 @@ class _EditBarangState extends State<EditBarang> {
                       color: Colors.white,
                       border: Border.all(color: MyColors.bg, width: 2),
                     ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.cloud_upload),
-                          SizedBox(height: 10),
-                          Text('Upload Foto', style: TextStyle(fontSize: 14)),
-                          if (_image != null)
-                            Image.file(_image!, height: 300.0, width: 300.0)
-                          else
-                            Container(),
-                        ],
-                      ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Center(
+                          child: _image != null
+                              ? Image.file(_image!, fit: BoxFit.cover)
+                              : Icon(Icons.cloud_upload, size: 80),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -264,6 +260,7 @@ class _EditBarangState extends State<EditBarang> {
                     ),
                   ),
                 ),
+                SizedBox(height: 15),
                 TextField(
                   controller: stok,
                   keyboardType: TextInputType.number,
