@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/page/Login/login.dart';
 import 'package:frontend/page/intro/intro_model.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class intro extends StatefulWidget {
   const intro({super.key});
@@ -26,11 +26,11 @@ class _introState extends State<intro> {
     super.dispose();
   }
 
-  // _storeIntroInfo()async {
-  //   int isViewed = 0;
-  //   SharedPreferences prefs=await SharedPreferences.getInstance();
-  //   await prefs.setInt('intro', isViewed);
-  // }
+  _storeIntroInfo()async {
+    int isViewed = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('intro', isViewed);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,9 @@ class _introState extends State<intro> {
         actions: [
           TextButton(
             onPressed: () async {
-              // await _storeIntroInfo();
-              // Navigator.pushReplacement(
-              //     context, MaterialPageRoute(builder: (context) => Login()));
+              await _storeIntroInfo();
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Login()));
             },
             child: Text(
               "Skip",
@@ -90,7 +90,7 @@ class _introState extends State<intro> {
                     InkWell(
                       onTap: () async {
                         if (index == screens.length - 1) {
-                          // await _storeIntroInfo();
+                          await _storeIntroInfo();
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) => Login()));
                         }

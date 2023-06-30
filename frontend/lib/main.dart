@@ -4,14 +4,14 @@ import 'package:frontend/page/Register/register.dart';
 import 'package:frontend/theme/pallete.dart';
 import 'package:frontend/page/intro/intro.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 int? isViewed;
 
-void main(List<String> args) {
+Future<void> main(List<String> args) async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   WidgetsFlutterBinding.ensureInitialized();
-  // SharedPreferences prefs= await SharedPreferences.getInstance();
-  // isViewed = prefs.getInt("intro");
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(const SewaIn());
 }
 
