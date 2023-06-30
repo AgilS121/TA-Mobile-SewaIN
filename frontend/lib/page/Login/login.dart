@@ -12,6 +12,8 @@ import 'package:frontend/page/home/home.dart';
 import 'package:frontend/theme/pallete.dart';
 import 'package:http/http.dart' as http;
 
+import '../forgetpassword/forgot_password.dart';
+
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -97,14 +99,26 @@ class _LoginState extends State<Login> {
                   const SizedBox(height: 5),
                   Row(
                     children: [
-                      Text(
-                        "Lupa Password?",
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: MyColors.bg,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600),
+                      //ubah
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ForgotPassword(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Lupa Password?",
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: MyColors.bg,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
+                      //KELARubah
                     ],
                   ),
                   const SizedBox(height: 5),
