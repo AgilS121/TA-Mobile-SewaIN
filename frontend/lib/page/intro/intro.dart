@@ -67,7 +67,7 @@ class _introState extends State<intro> {
             },
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.only(top: 100),
+                padding: const EdgeInsets.only(top: 50),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
