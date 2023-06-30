@@ -28,7 +28,7 @@ class SewaIn extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: MyColors.bg,
       ),
-      home: /* isViewed !=0 ? */intro() /*: Login() */,
+      home: isViewed !=0 ? intro() : Login(),
       routes: {'/login': (context) => Login()},
     );
   }
