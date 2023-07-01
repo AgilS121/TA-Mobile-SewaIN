@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/controllers/services.dart';
@@ -13,6 +14,7 @@ class UsersService {
     String alamat,
     String no_telp,
     String email,
+    File image,
     String accessToken,
   ) async {
     final url = Constans.apiUrl + '/users/$id';
@@ -23,7 +25,7 @@ class UsersService {
       'Authorization': 'Bearer ${tokenManager.accessToken}'
     };
 
-    // print('id : $id');
+    print('id : $id');
     // print('id : $name');
     // print('id : $alamat');
     // print('id : $no_telp');
@@ -32,19 +34,23 @@ class UsersService {
     // print('url : $url');
 
     try {
-      final response = await http.patch(
-        Uri.parse(url),
-        headers: headers,
-        body: {
-          'name': name,
-          'no_telp': no_telp,
-          'alamat': alamat,
-          'email': email,
-        },
-      );
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.headers.addAll(headers);
+      request.fields['_method'] = 'PATCH';
+      request.fields['name'] = name;
+      request.fields['no_telp'] = no_telp;
+      request.fields['alamat'] = alamat;
+      request.fields['email'] = email;
 
-      if (response.statusCode == 200) {
-        print('Update data users berhasil');
+      if (image != null) {
+        request.files
+            .add(await http.MultipartFile.fromPath('image', image.path));
+      }
+
+      final response = await request.send();
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('Update data User berhasil');
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -60,27 +66,14 @@ class UsersService {
             ],
           ),
         );
-        final responseData = jsonDecode(response.body);
+        final responseData = jsonDecode(response.reasonPhrase.toString());
+      } else if (response.statusCode == 400) {
+        print('Gagal menambahkan data');
       } else {
-        print('Update data users gagal: ${response.statusCode}');
+        print('Gagal regis ${response.statusCode} || ${response.reasonPhrase}');
       }
     } catch (e) {
       print('Error: $e');
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Register Gagal'),
-          content: Text('Ada Kesalahan Jaringan nih'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        ),
-      );
     }
   }
 }

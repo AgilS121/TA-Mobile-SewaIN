@@ -1,15 +1,20 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:frontend/controllers/services/meService.dart';
+import 'package:frontend/controllers/services.dart';
 import 'package:frontend/controllers/services/usersService.dart';
-import 'package:frontend/models/members.dart';
-import 'package:frontend/page/profile/components/image_profile_edit.dart';
+import 'package:frontend/controllers/tokenManager.dart';
 import 'package:frontend/theme/pallete.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 class editProfile extends StatefulWidget {
   final String accessToken;
-  const editProfile({super.key, required this.accessToken});
+  final Map<String, dynamic> datauser;
+  const editProfile(
+      {super.key, required this.accessToken, required this.datauser});
 
   @override
   State<editProfile> createState() => _editProfileState();
@@ -20,30 +25,33 @@ class _editProfileState extends State<editProfile> {
   TextEditingController no_telp = TextEditingController();
   TextEditingController alamat = TextEditingController();
   TextEditingController email = TextEditingController();
+  String image = 'download.png';
   int inisial = 0;
-
-  Member? userData;
-
-  void fetchData() async {
-    try {
-      final Member data = await Me.fetchUser(context, widget.accessToken);
-      setState(() {
-        userData = data;
-        name.text = data.user.name;
-        no_telp.text = data.user.no_telp;
-        alamat.text = data.user.alamat;
-        email.text = data.user.email;
-        inisial = data.user.id;
-      });
-    } catch (e) {
-      print('Failed to fecth data : $e');
-    }
-  }
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    fetchData();
+    name.text = widget.datauser['nama'];
+    no_telp.text = widget.datauser['no_telp'];
+    alamat.text = widget.datauser['alamat'];
+    email.text = widget.datauser['email'];
+    image = widget.datauser['image'];
+    inisial = widget.datauser['id'];
+  }
+
+  File? selectedImage;
+  final picker = ImagePicker();
+  Future<void> getImage(bool isCamera) async {
+    final pickedFile = await picker.getImage(
+      source: isCamera ? ImageSource.camera : ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      setState(() {
+        selectedImage = File(pickedFile.path);
+      });
+    }
   }
 
   @override
@@ -70,7 +78,114 @@ class _editProfileState extends State<editProfile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Expanded(child: imageProfile_edit()),
+        Expanded(
+            child: Container(
+          width: double.infinity,
+          height: 200,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: 20,
+              ),
+              Container(
+                height: 150,
+                width: 150,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: MyColors.bg, width: 2),
+                ),
+                child: ClipOval(
+                  child: Center(
+                    child: selectedImage != null
+                        ? Image.file(selectedImage!, fit: BoxFit.cover)
+                        : Image.network(
+                            Constans.imageUrl + widget.datauser['image'],
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Photo Profile",
+                    style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white),
+                  ),
+                  SizedBox(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                        ),
+                      ),
+                      width: 150,
+                      height: 34,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Upload Foto'),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      GestureDetector(
+                                        child: Text('Ambil dari Kamera'),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          getImage(true);
+                                        },
+                                      ),
+                                      SizedBox(height: 10),
+                                      GestureDetector(
+                                        child: Text('Pilih dari Galeri'),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          getImage(false);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: Text(
+                          "Unggah Foto",
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: MyColors.bg),
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+            ],
+          ),
+        )),
         Expanded(
           flex: 2,
           child: Container(
@@ -162,6 +277,7 @@ class _editProfileState extends State<editProfile> {
                               alamat.text,
                               no_telp.text,
                               email.text,
+                              selectedImage!,
                               widget.accessToken);
                           print(name.text);
                           print(alamat.text);
