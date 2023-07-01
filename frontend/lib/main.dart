@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:frontend/page/Login/login.dart';
 import 'package:frontend/page/Register/register.dart';
 import 'package:frontend/theme/pallete.dart';
+import 'package:frontend/page/intro/intro.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main(List<String> args) {
+int? isViewed;
+
+Future<void> main(List<String> args) async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(const SewaIn());
 }
 
@@ -20,7 +28,7 @@ class SewaIn extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: MyColors.bg,
       ),
-      home: Login(),
+      home: isViewed !=0 ? intro() : Login(),
       routes: {'/login': (context) => Login()},
     );
   }
