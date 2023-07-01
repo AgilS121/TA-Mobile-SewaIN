@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/controllers/services.dart';
@@ -13,7 +14,7 @@ class EditBarangMember {
       String id_subkategori,
       String nama_barang,
       String deskripsi,
-      String image,
+      File image,
       String stok,
       String harga,
       String durasi_sewa,
@@ -27,17 +28,23 @@ class EditBarangMember {
     };
 
     try {
-      final response =
-          await http.patch(Uri.parse(url), headers: headers, body: {
-        "id_kategori": id_kategori,
-        "id_subkategori": id_subkategori,
-        "nama_barang": nama_barang,
-        "deskripsi": deskripsi,
-        "image": image,
-        "stok": stok,
-        "harga": harga,
-        "durasi_sewa": durasi_sewa
-      });
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.headers.addAll(headers);
+      request.fields['_method'] = 'PATCH';
+      request.fields['id_kategori'] = id_kategori;
+      request.fields['id_subkategori'] = id_subkategori;
+      request.fields['nama_barang'] = nama_barang;
+      request.fields['deskripsi'] = deskripsi;
+      request.fields['stok'] = stok;
+      request.fields['harga'] = harga;
+      request.fields['durasi_sewa'] = durasi_sewa;
+
+      if (image != null) {
+        request.files
+            .add(await http.MultipartFile.fromPath('image', image.path));
+      }
+
+      final response = await request.send();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         print('Update data barang berhasil');
@@ -50,16 +57,17 @@ class EditBarangMember {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
+                  Navigator.of(context).pop();
                 },
                 child: Text('OK'),
               ),
             ],
           ),
         );
-        final responseData = jsonDecode(response.body);
+        final responseData =
+            jsonDecode(response.stream.bytesToString().toString());
       } else {
-        print(
-            'Update data users gagal: ${response.statusCode} || ${response.body}');
+        print('Gagal regis ${response.statusCode} || ${response.reasonPhrase}');
       }
     } catch (e) {
       print('Error: $e');
