@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/controllers/services/meService.dart';
 import 'package:frontend/models/members.dart';
 
 class PembayaranDetailScreen extends StatefulWidget {
@@ -17,28 +16,13 @@ class PembayaranDetailScreen extends StatefulWidget {
 }
 
 class _PembayaranDetailScreenState extends State<PembayaranDetailScreen> {
-  Member? userData;
-
-  void fetchData() async {
-    try {
-      final Member data = await Me.fetchUser(context, widget.accessToken);
-      setState(() {
-        userData = data;
-      });
-    } catch (e) {
-      print('Failed to fetch data: $e');
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
-    print('user data di pembayaran : $userData');
     String paymentText;
     Widget paymentMethodDetails;
 
