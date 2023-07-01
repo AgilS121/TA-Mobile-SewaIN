@@ -176,7 +176,8 @@ class _EditBarangState extends State<EditBarang> {
                         Center(
                           child: _image != null
                               ? Image.file(_image!, fit: BoxFit.cover)
-                              : Icon(Icons.cloud_upload, size: 80),
+                              : Image.network(Constans.imageUrl +
+                                  widget.listbarang['image']),
                         ),
                       ],
                     ),
@@ -340,7 +341,7 @@ class _EditBarangState extends State<EditBarang> {
                             selectedSubCategory!.toString(),
                             nama_barang.text,
                             deskripsi.text,
-                            _image.toString(),
+                            _image!,
                             stok.text,
                             harga.text,
                             dataInput.toString(),
