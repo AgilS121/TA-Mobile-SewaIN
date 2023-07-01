@@ -119,60 +119,6 @@ class _TambahBarangState extends State<TambahBarang> {
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Column(
             children: [
-              // GestureDetector(
-              //   onTap: () {
-              //     showDialog(
-              //       context: context,
-              //       builder: (BuildContext context) {
-              //         return AlertDialog(
-              //           title: Text('Upload Foto'),
-              //           content: SingleChildScrollView(
-              //             child: ListBody(
-              //               children: <Widget>[
-              //                 // GestureDetector(
-              //                 //   child: Text('Ambil dari Kamera'),
-              //                 //   onTap: () {
-              //                 //     Navigator.pop(context);
-              //                 //     getImage(true);
-              //                 //   },
-              //                 // ),
-              //                 SizedBox(height: 10),
-              //                 GestureDetector(
-              //                   child: Text('Pilih dari Galeri'),
-              //                   onTap: () {
-              //                     Navigator.pop(context);
-              //                     getImage();
-              //                   },
-              //                 ),
-              //               ],
-              //             ),
-              //           ),
-              //         );
-              //       },
-              //     );
-              //   },
-              //   child: Container(
-              //     height: 294,
-              //     decoration: BoxDecoration(
-              //       color: Colors.white,
-              //       border: Border.all(color: MyColors.bg, width: 2),
-              //     ),
-              //     child: Center(
-              //       child: Column(
-              //         mainAxisAlignment: MainAxisAlignment.center,
-              //         children: [
-              //           Icon(Icons.cloud_upload),
-              //           SizedBox(height: 10),
-              //           Text('Upload Foto', style: TextStyle(fontSize: 14)),
-              //           if (_image != null)
-              //             Image.file(_image!, height: 300.0, width: 300.0)
-              //           else
-              //             Container(),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: 200,
@@ -363,15 +309,6 @@ class _TambahBarangState extends State<TambahBarang> {
                           harga.text,
                           dataInput.toString(),
                           widget.accessToken);
-                      // print(selectedCategoryId.toString());
-                      // print(selectedSubCategory.toString());
-                      // print(nama_barang.toString());
-                      // print(deskripsi.toString());
-                      print('ini data gambar');
-                      print(_image);
-                      // print(stok.toString());
-                      // print(harga.toString());
-                      // print(dataInput.toString());
                     },
                     child: Text(
                       'Simpan',
