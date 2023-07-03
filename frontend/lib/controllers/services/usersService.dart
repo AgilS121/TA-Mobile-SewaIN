@@ -25,14 +25,6 @@ class UsersService {
       'Authorization': 'Bearer ${tokenManager.accessToken}'
     };
 
-    print('id : $id');
-    // print('id : $name');
-    // print('id : $alamat');
-    // print('id : $no_telp');
-    // print('id : $email');
-    // print('id : ${tokenManager.accessToken}');
-    // print('url : $url');
-
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.headers.addAll(headers);

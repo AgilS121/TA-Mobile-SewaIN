@@ -58,6 +58,7 @@ class _PembayaranState extends State<Pembayaran> {
   }
 
   Widget body() {
+    print('ini total harga ${widget.databarang['harga_total']}');
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -73,8 +74,10 @@ class _PembayaranState extends State<Pembayaran> {
             accessToken: widget.accessToken,
             databarang: {
               "id": widget.databarang['id'],
+              "name": widget.databarang['name'],
+              "email": widget.databarang['email'],
               "nama_barang": widget.databarang['nama_barang'],
-              "total_harga": widget.databarang['total_harga'],
+              "harga_total": widget.databarang['harga_total'],
             },
           ),
         ),
