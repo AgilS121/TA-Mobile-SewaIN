@@ -29,7 +29,7 @@ List<introModel> screens = <introModel>[
   ),
   introModel(
     img: "assets/images/intro3.png", 
-    text: "Barang terjamin karena dikirim langsung oleh pemilik barang", 
+    text: "Barang terjamin karena dikirim langsung oleh pemilik barang",
     bg: Color.fromARGB(255, 105, 192, 255), 
     button: Color.fromARGB(255, 105, 192, 255)
   ),
