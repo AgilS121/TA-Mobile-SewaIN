@@ -5,10 +5,12 @@ import 'package:frontend/models/barang.dart';
 import 'package:frontend/models/sewas.dart';
 import 'package:frontend/theme/pallete.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
 class RiwayatPeminjaman extends StatefulWidget {
   final String accessToken;
-  const RiwayatPeminjaman({super.key, required this.accessToken});
+  const RiwayatPeminjaman({Key? key, required this.accessToken})
+      : super(key: key);
 
   @override
   State<RiwayatPeminjaman> createState() => _RiwayatPeminjamanState();
@@ -17,8 +19,10 @@ class RiwayatPeminjaman extends StatefulWidget {
 class _RiwayatPeminjamanState extends State<RiwayatPeminjaman> {
   final formatCurrency =
       NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
-  void fetchData() async {
+  Future<void> fetchData() async {
     try {
       final List<Sewa> data = await DataSewa.fetchSewa(widget.accessToken);
       setState(() {
@@ -36,6 +40,10 @@ class _RiwayatPeminjamanState extends State<RiwayatPeminjaman> {
     fetchData();
   }
 
+  Future<void> _refreshData() async {
+    await fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,28 +57,30 @@ class _RiwayatPeminjamanState extends State<RiwayatPeminjaman> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-                child: Container(
-              child: Row(
-                children: [
-                  // Icon(color: MyColors.bg, Icons.arrow_back),
-                  // SizedBox(
-                  //   width: 10,
-                  // ),
-                  Text(
-                    "Riwayat Sewa",
-                    style: TextStyle(
+              child: Container(
+                child: Row(
+                  children: [
+                    Text(
+                      "Riwayat Sewa",
+                      style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
-                        fontFamily: 'Poppins'),
-                  ),
-                ],
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
-      body: body(),
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _refreshData,
+        child: body(),
+      ),
     );
   }
 
@@ -78,9 +88,17 @@ class _RiwayatPeminjamanState extends State<RiwayatPeminjaman> {
     return ListView.builder(
       itemCount: DataSewa.sewa.length,
       itemBuilder: (BuildContext context, int index) {
-        if (DataSewa.sewa[index].status == 'Selesai') {
-          return Card(
-              child: Padding(
+        final DateTime createdAt = DataSewa.sewa[index].createdAt;
+        final DateTime now = DateTime.now();
+        final Duration durasiSewa = now.difference(createdAt);
+
+        final int durasiHari = durasiSewa.inDays;
+        final int durasiMenit = durasiSewa.inMinutes % 60;
+
+        bool isCountdown = DataSewa.sewa[index].status == 'sudah';
+
+        return Card(
+          child: Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
             child: ListTile(
               leading: Image.network(
@@ -104,33 +122,49 @@ class _RiwayatPeminjamanState extends State<RiwayatPeminjaman> {
                   Text(
                     DataSewa.sewa[index].barang.deskripsi,
                     style: TextStyle(
-                        fontSize: 10,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600),
+                      fontSize: 10,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                  Text(
-                    "durasi sewa",
-                    style: TextStyle(
-                        fontSize: 10,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        color: MyColors.bg),
-                  ),
+                  isCountdown
+                      ? CountdownTimer(
+                          endTime: createdAt
+                              .add(Duration(days: durasiHari))
+                              .millisecondsSinceEpoch,
+                          textStyle: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            color: MyColors.bg,
+                          ),
+                          onEnd: () {
+                            // Jika waktu sewa habis, lakukan sesuatu
+                          },
+                        )
+                      : Text(
+                          "Durasi sewa: $durasiHari hari $durasiMenit menit",
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            color: MyColors.bg,
+                          ),
+                        ),
                 ],
               ),
               trailing: Text(
                 DataSewa.sewa[index].status,
                 style: TextStyle(
-                    color: MyColors.text,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 10),
+                  color: MyColors.text,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 10,
+                ),
               ),
             ),
-          ));
-        } else {
-          return SizedBox.shrink();
-        }
+          ),
+        );
       },
     );
   }
