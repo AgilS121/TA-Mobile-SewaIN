@@ -26,7 +26,7 @@ class _introState extends State<intro> {
     super.dispose();
   }
 
-  _storeIntroInfo()async {
+  _storeIntroInfo() async {
     int isViewed = 0;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('intro', isViewed);
