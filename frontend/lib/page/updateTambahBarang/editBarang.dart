@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:frontend/controllers/services/editBarangMemberService.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:frontend/controllers/services.dart';
-import 'package:frontend/models/barang.dart';
+// import 'package:frontend/models/barang.dart';
 import 'package:frontend/theme/pallete.dart';
 import 'package:http/http.dart' as http;
 
@@ -117,7 +117,14 @@ class _EditBarangState extends State<EditBarang> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: MyColors.bg),
-        elevation: 0,
+        title: const Text(
+          "Edit Barang",
+          style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Colors.black),
+        ),
       ),
       body: body(),
     );
@@ -126,7 +133,7 @@ class _EditBarangState extends State<EditBarang> {
   Widget body() {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.only(right: 19, left: 19, bottom: 15),
+        padding: const EdgeInsets.only(right: 19, left: 19, bottom: 15, top: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -138,20 +145,67 @@ class _EditBarangState extends State<EditBarang> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Upload Foto'),
+                          title: const Text(
+                            'Upload Foto',
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 21,
+                                color: Colors.black),
+                          ),
                           content: SingleChildScrollView(
                             child: ListBody(
                               children: <Widget>[
                                 GestureDetector(
-                                  child: Text('Ambil dari Kamera'),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: const [
+                                      Icon(
+                                        Icons.camera_alt,
+                                        color: Colors.black,
+                                        size: 35,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          "Ambil Dari Kamera",
+                                          style: TextStyle(
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 14,
+                                              color: Colors.black),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                   onTap: () {
                                     Navigator.pop(context);
                                     getImage(true);
                                   },
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 GestureDetector(
-                                  child: Text('Pilih dari Galeri'),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: const [
+                                      Icon(
+                                        Icons.filter,
+                                        color: Colors.black,
+                                        size: 35,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          "Pilih Dari Gallery",
+                                          style: TextStyle(
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 14,
+                                              color: Colors.black),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                   onTap: () {
                                     Navigator.pop(context);
                                     getImage(false);
@@ -183,11 +237,16 @@ class _EditBarangState extends State<EditBarang> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 TextField(
                   controller: nama_barang,
-                  decoration: InputDecoration(
-                    labelText: 'Nama Barang Edit',
+                  decoration: const InputDecoration(
+                    labelText: 'Edit Nama Barang',
+                    labelStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Colors.black),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue),
                     ),
@@ -196,9 +255,9 @@ class _EditBarangState extends State<EditBarang> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.blue,
@@ -207,17 +266,35 @@ class _EditBarangState extends State<EditBarang> {
                   ),
                   child: TextField(
                     controller: deskripsi,
-                    decoration: InputDecoration(
-                      hintText: 'Deskripsi Barang',
+                    decoration: const InputDecoration(
+                      labelText: "Edit Deskripsi Barang",
+                      labelStyle: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: Colors.black),
+                      hintText: 'Edit Deskripsi Barang',
+                      hintStyle: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: Colors.grey),
                       border: InputBorder.none,
                     ),
                     maxLines: 5,
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 DropdownButton<int>(
                   value: selectedCategoryId,
-                  hint: Text('Select Name Kategori'),
+                  hint: const Text(
+                    'Select Name Kategori',
+                    style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Colors.black),
+                  ),
                   onChanged: (value) {
                     setState(() {
                       selectedCategoryId = value;
@@ -226,14 +303,24 @@ class _EditBarangState extends State<EditBarang> {
                   items: data.map<DropdownMenuItem<int>>((list) {
                     return DropdownMenuItem<int>(
                       value: list['id'],
-                      child: Text(list['nama_kategori']),
+                      child: Text(list['nama_kategori'],
+                          style: const TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.black)),
                     );
                   }).toList(),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 DropdownButton<int>(
                   value: selectedSubCategory,
-                  hint: Text('Select Sub Kategori'),
+                  hint: const Text('Select Sub Kategori',
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: Colors.black)),
                   onChanged: (value) {
                     setState(() {
                       selectedSubCategory = value;
@@ -242,17 +329,27 @@ class _EditBarangState extends State<EditBarang> {
                   items: datasub.map<DropdownMenuItem<int>>((list) {
                     return DropdownMenuItem<int>(
                       value: list['id'],
-                      child: Text(list['nama_subkategori']),
+                      child: Text(list['nama_subkategori'],
+                          style: const TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.black)),
                     );
                   }).toList(),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 TextField(
                   controller: harga,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Harga',
+                    labelStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Colors.black),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue),
                     ),
@@ -261,13 +358,18 @@ class _EditBarangState extends State<EditBarang> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 TextField(
                   controller: stok,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Stok',
+                    labelStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Colors.black),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue),
                     ),
@@ -276,53 +378,71 @@ class _EditBarangState extends State<EditBarang> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
                       'Masukkan Data : ',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: Colors.black),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: dataInput.length + 1,
-                      itemBuilder: (context, index) {
-                        if (index == dataInput.length) {
-                          return ElevatedButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Tambah Data'),
-                                    content: TextField(
-                                      onChanged: (value) {
-                                        tambahData(value + ' hari');
-                                        Navigator.pop(context);
-                                      },
-                                      decoration: const InputDecoration(
-                                        border: OutlineInputBorder(),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: dataInput.length + 1,
+                        itemBuilder: (context, index) {
+                          if (index == dataInput.length) {
+                            return ElevatedButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Tambah Data'),
+                                      titleTextStyle: const TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 21,
+                                          color: Colors.black),
+                                      content: TextField(
+                                        onChanged: (value) {
+                                          tambahData(value + ' hari');
+                                          Navigator.pop(context);
+                                        },
+                                        decoration: const InputDecoration(
+                                          border: OutlineInputBorder(),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child: const Text('Tambah Data'),
+                                    );
+                                  },
+                                );
+                              },
+                              child: const Text('Tambah Data',
+                                  style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      color: Colors.white)),
+                            );
+                          }
+                          final duration = dataInput[index]['text'].toString();
+                          final value =
+                              duration.replaceAll(RegExp(r'[^0-9]+'), '');
+                          final label = '$value hari';
+                          return ListTile(
+                            title: Text(label),
                           );
-                        }
-                        final duration = dataInput[index]['text'].toString();
-                        final value =
-                            duration.replaceAll(RegExp(r'[^0-9]+'), '');
-                        final label = '$value hari';
-                        return ListTile(
-                          title: Text(label),
-                        );
-                      },
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -331,7 +451,7 @@ class _EditBarangState extends State<EditBarang> {
                   child: Container(
                     width: double.infinity,
                     height: 50,
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(bottom: 10.0, left: 10, right: 10),
                     child: ElevatedButton(
                       onPressed: () {
                         EditBarangMember.barangMember(
@@ -347,7 +467,7 @@ class _EditBarangState extends State<EditBarang> {
                             dataInput.toString(),
                             widget.accessToken);
                       },
-                      child: Text(
+                      child: const Text(
                         'Simpan',
                         style: TextStyle(
                           fontFamily: 'Poppins',

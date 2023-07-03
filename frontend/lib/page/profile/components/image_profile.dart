@@ -37,7 +37,7 @@ class _ImageProfileState extends State<ImageProfile> {
           SizedBox(height: 10),
           Text(
             widget.datauser['nama'] ?? 'Agil',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
               color: Colors.white,
@@ -46,7 +46,7 @@ class _ImageProfileState extends State<ImageProfile> {
           SizedBox(height: 5),
           Text(
             widget.datauser['email'] ?? 'Software Engineer',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               color: Colors.white,
             ),
