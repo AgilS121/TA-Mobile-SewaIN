@@ -10,6 +10,7 @@ class SewaService {
   static Future<void> sewa(
     BuildContext context,
     String id_barang,
+    String id_penyewa,
     String durasi_sewa,
     String total_harga,
     String accessToken,
@@ -25,7 +26,7 @@ class SewaService {
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: {
         "id_barang": id_barang,
-        "id_penyewa": "8",
+        "id_penyewa": id_penyewa,
         "durasi_sewa": durasi_sewa,
         "jumlah_sewa": "1",
         "total_harga": total_harga
@@ -36,6 +37,8 @@ class SewaService {
         final responseData = jsonDecode(response.body);
         final datasewa = {
           "id": responseData['data']['id'],
+          "name": responseData['data']['user']['name'],
+          "email": responseData['data']['user']['email'],
           "total_harga": responseData['data']['total_harga']
         };
         print('ini datasewa : $datasewa');
@@ -48,6 +51,8 @@ class SewaService {
                       accessToken: accessToken,
                       databarang: {
                         "id": datasewa['id'],
+                        "name": datasewa['name'],
+                        "email": datasewa['email'],
                         "harga_total": datasewa['total_harga']
                       },
                       datasewa: datasewa,

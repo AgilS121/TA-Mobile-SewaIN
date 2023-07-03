@@ -13,12 +13,6 @@ class DurasiSewaPage extends StatefulWidget {
 class DurasiSewaPageState extends State<DurasiSewaPage> {
   int? _selectedDuration = 1;
 
-  // List<Map<String, dynamic>> _durations = [
-  //   {'id': 1, 'text': '1 jam'},
-  //   {'id': 2, 'text': '2 jam'},
-  //   {'id': 3, 'text': '3 jam'},
-  //   {'id': 4, 'text': '4 jam'},
-  // ];
   List<Map<String, dynamic>> _durations = [];
 
   @override

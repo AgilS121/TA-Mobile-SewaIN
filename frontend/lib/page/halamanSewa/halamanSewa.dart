@@ -1,13 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/components/root.dart';
+import 'package:frontend/controllers/services.dart';
 import 'package:frontend/controllers/services/addSewaService.dart';
 import 'package:frontend/controllers/services/homeService.dart';
+import 'package:frontend/controllers/tokenManager.dart';
 import 'package:frontend/models/barang.dart';
 import 'package:frontend/page/Pembayaran/pembayaran.dart';
 import 'package:frontend/page/halamanSewa/components/durasi_sewa.dart';
 import 'package:frontend/page/halamanSewa/components/image_halaman_sewa.dart';
 import 'package:frontend/theme/pallete.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class HalamanSewa extends StatefulWidget {
   final String accessToken;
@@ -30,9 +35,36 @@ class _HalamanSewaState extends State<HalamanSewa> {
   final formatCurrency =
       NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
 
+  int id = 0;
+
   @override
   void initState() {
     super.initState();
+    fetchUser();
+  }
+
+  Future<void> fetchUser() async {
+    final url = Constans.apiUrl + '/me';
+    final tokenManager = TokenManager();
+    tokenManager.accessToken = widget.accessToken;
+    final headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${tokenManager.accessToken}'
+    };
+
+    final response = await http.get(Uri.parse(url), headers: headers);
+    print('ini response: ${response.statusCode} || ${response.body}');
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final user = data['data'];
+      setState(() {
+        id = user['user']['id'];
+      });
+      print('ini data $data || ${user['user']['name']}');
+    } else {
+      throw Exception('Failed to fetch data: ${response.statusCode}');
+    }
   }
 
   int _selectedDuration = 1;
@@ -204,6 +236,7 @@ class _HalamanSewaState extends State<HalamanSewa> {
   }
 
   Widget showBottomSewa() {
+    print('ini id user $id');
     int idbarang = widget.listbarang['id'].toInt();
     String idbarangstring = idbarang.toString();
     int hargatotal = widget.listbarang['harga'] * _selectedDuration;
@@ -265,6 +298,7 @@ class _HalamanSewaState extends State<HalamanSewa> {
                       SewaService.sewa(
                           context,
                           idbarangstring,
+                          id.toString(),
                           _selectedDuration.toString(),
                           hargatotal.toString(),
                           widget.accessToken);

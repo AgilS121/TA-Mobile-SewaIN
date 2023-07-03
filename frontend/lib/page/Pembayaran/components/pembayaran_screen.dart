@@ -171,14 +171,17 @@ class _PembayaranScreenState extends State<PembayaranScreen> {
   }
 
   void _navigateToPembayaranDetail(BuildContext context) {
+    print('ini harga di screen ${widget.databarang['harga_total']}');
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => PembayaranDetailScreen(
                 databarang: {
                   "id": widget.databarang['id'],
+                  "name": widget.databarang['name'],
+                  "email": widget.databarang['email'],
                   "nama_barang": widget.databarang['nama_barang'],
-                  "total_harga": widget.databarang['total_harga']
+                  "harga_total": widget.databarang['harga_total'],
                 },
                 paymentMethod: _paymentMethod,
                 accessToken: widget.accessToken,
