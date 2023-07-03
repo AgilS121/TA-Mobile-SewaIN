@@ -13,19 +13,22 @@ class Sewa {
   final int jumlah_sewa;
   final int total_harga;
   final String status;
+  final DateTime createdAt; // Tambahkan properti createdAt
   final Barang barang;
   final Users user;
 
-  Sewa(
-      {required this.id,
-      required this.id_barang,
-      required this.id_penyewa,
-      required this.durasi_sewa,
-      required this.jumlah_sewa,
-      required this.total_harga,
-      required this.status,
-      required this.barang,
-      required this.user});
+  Sewa({
+    required this.id,
+    required this.id_barang,
+    required this.id_penyewa,
+    required this.durasi_sewa,
+    required this.jumlah_sewa,
+    required this.total_harga,
+    required this.status,
+    required this.createdAt, // Tambahkan parameter createdAt
+    required this.barang,
+    required this.user,
+  });
 
   factory Sewa.fromJson(Map<String, dynamic> json) {
     return Sewa(
@@ -36,6 +39,8 @@ class Sewa {
       jumlah_sewa: json['jumlah_sewa'] as int? ?? 0,
       total_harga: json['total_harga'] as int? ?? 0,
       status: json['status'] ?? '',
+      createdAt:
+          DateTime.parse((json['created_at'] as String).replaceAll('/', '-')),
       barang: Barang.fromJson(json['barang'] ?? {}),
       user: Users.fromJson(json['user'] ?? {}),
     );
