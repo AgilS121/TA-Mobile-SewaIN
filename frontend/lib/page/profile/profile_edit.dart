@@ -75,229 +75,337 @@ class _editProfileState extends State<editProfile> {
 
   body() {
     print('ini inisial : $inisial');
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-            child: Container(
-          width: double.infinity,
-          height: 200,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                width: 20,
-              ),
-              Container(
-                height: 150,
-                width: 150,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: MyColors.bg, width: 2),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+              child: Container(
+            width: double.infinity,
+            height: 200,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: 20,
                 ),
-                child: ClipOval(
-                  child: Center(
-                    child: selectedImage != null
-                        ? Image.file(selectedImage!, fit: BoxFit.cover)
-                        : Image.network(
-                            Constans.imageUrl + widget.datauser['image'],
-                            fit: BoxFit.cover,
+                Container(
+                  height: 150,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: MyColors.bg, width: 2),
+                  ),
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(Constans.imageUrl + widget.datauser['image']),
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Container(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Photo Profile",
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
+                    ),
+                    SizedBox(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
                           ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                  child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Photo Profile",
-                    style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white),
-                  ),
-                  SizedBox(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
                         ),
-                      ),
-                      width: 150,
-                      height: 34,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Upload Foto'),
-                                content: SingleChildScrollView(
-                                  child: ListBody(
-                                    children: <Widget>[
-                                      GestureDetector(
-                                        child: Text('Ambil dari Kamera'),
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                          getImage(true);
-                                        },
+                        width: 150,
+                        height: 34,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 14),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      'Upload Foto',
+                                      style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 21,
+                                          color: Colors.black),
+                                    ),
+                                    content: SingleChildScrollView(
+                                      child: ListBody(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(top: 10),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Icon(
+                                                    Icons.camera_alt,
+                                                    color: Colors.black,
+                                                    size: 35,
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Text(
+                                                      "Ambil Dari Kamera",
+                                                      style: TextStyle(
+                                                          fontFamily: 'Poppins',
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 14,
+                                                          color: Colors.black),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                              getImage(true);
+                                            },
+                                          ),
+                                          SizedBox(height: 10),
+                                          GestureDetector(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Icon(
+                                                  Icons.filter,
+                                                  color: Colors.black,
+                                                  size: 35,
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      left: 10),
+                                                  child: Text(
+                                                    "Pilih Dari Gallery",
+                                                    style: TextStyle(
+                                                        fontFamily: 'Poppins',
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: 14,
+                                                        color: Colors.black),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                              getImage(false);
+                                            },
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(height: 10),
-                                      GestureDetector(
-                                        child: Text('Pilih dari Galeri'),
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                          getImage(false);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
+                                  );
+                                },
                               );
                             },
-                          );
-                        },
-                        child: Text(
-                          "Unggah Foto",
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: MyColors.bg),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
+                            child: Text(
+                              "Unggah Foto",
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: MyColors.bg),
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              )),
-            ],
-          ),
-        )),
-        Expanded(
-          flex: 2,
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+                  ],
                 )),
-            // height: 700,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextField(
-                    controller: name,
-                    decoration: InputDecoration(
-                      // labelText: 'Nama',
-                      // hintText: userData?.user.name,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                    ),
-                  ),
-                  TextField(
-                    controller: no_telp,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      // labelText: 'No Telp',
-                      // hintText: userData?.user.no_telp,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                    ),
-                  ),
-                  TextField(
-                    controller: alamat,
-                    decoration: InputDecoration(
-                      // labelText: 'Alamat',
-                      // hintText: userData?.user.alamat,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                    ),
-                  ),
-                  TextField(
-                    readOnly: true,
-                    controller: email,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      // labelText: 'E-Mail',
-                      // hintText: userData?.user.email,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.bg),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
-                      ),
-                      width: 355,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          UsersService.users(
-                              context,
-                              inisial,
-                              name.text,
-                              alamat.text,
-                              no_telp.text,
-                              email.text,
-                              selectedImage!,
-                              widget.accessToken);
-                          print(name.text);
-                          print(alamat.text);
-                          print(no_telp.text);
-                          print(email.text);
-                        },
-                        child: Text("Simpan"),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(MyColors.bg),
+              ],
+            ),
+          )),
+          Container(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  )),
+              height: 497,
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: name,
+                        decoration: InputDecoration(
+                          labelText: 'Nama',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.black),
+                          hintText: 'Nama',
+                          hintStyle: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.grey),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.bg),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.bg),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: no_telp,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'No Telp',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.black),
+                          hintText: 'No Telp',
+                          hintStyle: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.grey),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.bg),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.bg),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: alamat,
+                        decoration: InputDecoration(
+                          labelText: 'Alamat',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.black),
+                          hintText: 'Alamat',
+                          hintStyle: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.grey),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.bg),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.bg),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        readOnly: true,
+                        controller: email,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          labelText: 'E-Mail',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.black),
+                          // hintText: userData?.user.email,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.bg),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.bg),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
+                        width: 355,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            UsersService.users(
+                                context,
+                                inisial,
+                                name.text,
+                                alamat.text,
+                                no_telp.text,
+                                email.text,
+                                selectedImage!,
+                                widget.accessToken);
+                            print(name.text);
+                            print(alamat.text);
+                            print(no_telp.text);
+                            print(email.text);
+                          },
+                          child: Text(
+                            "Simpan",
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                                color: Colors.white),
+                          ),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(MyColors.bg),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
