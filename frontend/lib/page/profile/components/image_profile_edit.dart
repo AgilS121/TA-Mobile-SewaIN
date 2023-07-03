@@ -19,13 +19,13 @@ class _imageProfile_editState extends State<imageProfile_edit> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
-          CircleAvatar(
+          const CircleAvatar(
             radius: 80,
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           Expanded(
@@ -33,7 +33,7 @@ class _imageProfile_editState extends State<imageProfile_edit> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "Photo Profile",
                 style: TextStyle(
                     fontFamily: 'Poppins',
@@ -43,7 +43,7 @@ class _imageProfile_editState extends State<imageProfile_edit> {
               ),
               SizedBox(
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),

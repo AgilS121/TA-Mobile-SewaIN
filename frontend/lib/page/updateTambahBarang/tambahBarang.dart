@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frontend/controllers/services.dart';
 import 'package:frontend/controllers/services/addBarangMemberService.dart';
-import 'package:frontend/controllers/services/kategoriService.dart';
-import 'package:frontend/models/kategori.dart';
+// import 'package:frontend/controllers/services/kategoriService.dart';
+// import 'package:frontend/models/kategori.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:frontend/theme/pallete.dart';
-import 'package:path/path.dart' as path;
+// import 'package:path/path.dart' as path;
 import 'package:http/http.dart' as http;
 
 class TambahBarang extends StatefulWidget {
@@ -23,7 +23,7 @@ class TambahBarang extends StatefulWidget {
 class _TambahBarangState extends State<TambahBarang> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   File? _image;
-  // final picker = ImagePicker();
+  final picker = ImagePicker();
   // String? _imageName;
 
   int? selectedCategoryId; // Menyimpan ID kategori yang dipilih
@@ -77,9 +77,9 @@ class _TambahBarangState extends State<TambahBarang> {
     print(data);
   }
 
-  Future<void> getImage() async {
-    final pickedFile = await ImagePicker().getImage(
-      source: ImageSource.gallery,
+  Future<void> getImage(bool isCamera) async {
+    final pickedFile = await picker.getImage(
+      source: isCamera ? ImageSource.camera : ImageSource.gallery,
     );
 
     if (pickedFile != null) {
@@ -103,7 +103,14 @@ class _TambahBarangState extends State<TambahBarang> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: MyColors.bg),
-        elevation: 0,
+        title: const Text(
+          "Tambah Barang",
+          style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Colors.black),
+        ),
       ),
       body: body(),
     );
@@ -112,7 +119,7 @@ class _TambahBarangState extends State<TambahBarang> {
   Widget body() {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.only(right: 19, left: 19, bottom: 15),
+        padding: const EdgeInsets.only(right: 19, left: 19, bottom: 15, top: 15),
         child: Form(
           key: _formKey,
           child: Column(
@@ -122,7 +129,84 @@ class _TambahBarangState extends State<TambahBarang> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      getImage();
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text(
+                              'Upload Foto',
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 21,
+                                  color: Colors.black),
+                            ),
+                            content: SingleChildScrollView(
+                              child: ListBody(
+                                children: <Widget>[
+                                  GestureDetector(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: const [
+                                        Icon(
+                                          Icons.camera_alt,
+                                          color: Colors.black,
+                                          size: 35,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 10),
+                                          child: Text(
+                                            "Ambil Dari Kamera",
+                                            style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 14,
+                                                color: Colors.black),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      getImage(true);
+                                    },
+                                  ),
+                                  const SizedBox(height: 10),
+                                  GestureDetector(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: const [
+                                        Icon(
+                                          Icons.filter,
+                                          color: Colors.black,
+                                          size: 35,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 10),
+                                          child: Text(
+                                            "Pilih Dari Gallery",
+                                            style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 14,
+                                                color: Colors.black),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      getImage(false);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -136,17 +220,22 @@ class _TambahBarangState extends State<TambahBarang> {
                               ),
                         border: Border.all(color: MyColors.bg, width: 2),
                       ),
-                      child: Center(
+                      child: const Center(
                         child:
                             Icon(Icons.image, size: 50, color: Colors.black38),
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   TextField(
                     controller: nama_barang,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Nama Barang',
+                      labelStyle: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
                       ),
@@ -155,9 +244,9 @@ class _TambahBarangState extends State<TambahBarang> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.blue,
@@ -166,17 +255,35 @@ class _TambahBarangState extends State<TambahBarang> {
                     ),
                     child: TextField(
                       controller: deskripsi,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
+                        labelText: "Deskripsi Barang",
+                        labelStyle: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color: Colors.black),
                         hintText: 'Deskripsi Barang',
+                        hintStyle: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color: Colors.grey),
                         border: InputBorder.none,
                       ),
                       maxLines: 5,
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   DropdownButton<int>(
                     value: selectedCategoryId,
-                    hint: Text('Select Name Kategori'),
+                    hint: const Text(
+                      'Select Name Kategori',
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: Colors.black),
+                    ),
                     onChanged: (value) {
                       setState(() {
                         selectedCategoryId = value;
@@ -185,14 +292,28 @@ class _TambahBarangState extends State<TambahBarang> {
                     items: data.map<DropdownMenuItem<int>>((list) {
                       return DropdownMenuItem<int>(
                         value: list['id'],
-                        child: Text(list['nama_kategori']),
+                        child: Text(
+                          list['nama_kategori'],
+                          style: const TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.black),
+                        ),
                       );
                     }).toList(),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   DropdownButton<int>(
                     value: selectedSubCategory,
-                    hint: Text('Select Sub Kategori'),
+                    hint: const Text(
+                      'Select Sub Kategori',
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: Colors.black),
+                    ),
                     onChanged: (value) {
                       setState(() {
                         selectedSubCategory = value;
@@ -201,17 +322,29 @@ class _TambahBarangState extends State<TambahBarang> {
                     items: datasub.map<DropdownMenuItem<int>>((list) {
                       return DropdownMenuItem<int>(
                         value: list['id'],
-                        child: Text(list['nama_subkategori']),
+                        child: Text(
+                          list['nama_subkategori'],
+                          style: const TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.black),
+                        ),
                       );
                     }).toList(),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   TextField(
                     controller: harga,
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Harga',
+                      labelStyle: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
                       ),
@@ -220,13 +353,18 @@ class _TambahBarangState extends State<TambahBarang> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   TextField(
                     controller: stok,
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Stok',
+                      labelStyle: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
                       ),
@@ -235,47 +373,64 @@ class _TambahBarangState extends State<TambahBarang> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
                         'Masukkan Data : ',
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color: Colors.black),
                       ),
                       const SizedBox(height: 8),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: dataInput.length + 1,
-                        itemBuilder: (context, index) {
-                          if (index == dataInput.length) {
-                            return ElevatedButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text('Tambah Data'),
-                                      content: TextField(
-                                        onChanged: (value) {
-                                          tambahData(value + 'hari');
-                                          Navigator.pop(context);
-                                        },
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: dataInput.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index == dataInput.length) {
+                              return ElevatedButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Tambah Data'),
+                                        titleTextStyle: const TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 21,
+                                            color: Colors.black),
+                                        content: TextField(
+                                          onChanged: (value) {
+                                            tambahData(value + 'hari');
+                                            Navigator.pop(context);
+                                          },
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: const Text('Tambah Data'),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: const Text('Tambah Data',
+                                    style: TextStyle(
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 15,
+                                        color: Colors.white)),
+                              );
+                            }
+                            return ListTile(
+                              title: Text(dataInput[index]),
                             );
-                          }
-                          return ListTile(
-                            title: Text(dataInput[index]),
-                          );
-                        },
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -284,7 +439,7 @@ class _TambahBarangState extends State<TambahBarang> {
                     child: Container(
                       width: double.infinity,
                       height: 50,
-                      padding: EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: ElevatedButton(
                         onPressed: () {
                           AddBarangMember.addBarang(
@@ -309,7 +464,7 @@ class _TambahBarangState extends State<TambahBarang> {
                           // print(harga.toString());
                           // print(dataInput.toString());
                         },
-                        child: Text(
+                        child: const Text(
                           'Simpan',
                           style: TextStyle(
                             fontFamily: 'Poppins',

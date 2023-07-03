@@ -60,7 +60,7 @@ class _editProfileState extends State<editProfile> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: MyColors.bg),
-        title: Text(
+        title: const Text(
           "Edit Profile",
           style: TextStyle(
               fontFamily: 'Poppins',
@@ -86,7 +86,7 @@ class _editProfileState extends State<editProfile> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Container(
@@ -101,7 +101,7 @@ class _editProfileState extends State<editProfile> {
                     backgroundImage: NetworkImage(Constans.imageUrl + widget.datauser['image']),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Container(
@@ -109,7 +109,7 @@ class _editProfileState extends State<editProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Photo Profile",
                       style: TextStyle(
                           fontFamily: 'Poppins',
@@ -119,7 +119,7 @@ class _editProfileState extends State<editProfile> {
                     ),
                     SizedBox(
                       child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20),
@@ -137,7 +137,7 @@ class _editProfileState extends State<editProfile> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: Text(
+                                    title: const Text(
                                       'Upload Foto',
                                       style: TextStyle(
                                           fontFamily: 'Poppins',
@@ -154,14 +154,14 @@ class _editProfileState extends State<editProfile> {
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
-                                                children: [
+                                                children: const [
                                                   Icon(
                                                     Icons.camera_alt,
                                                     color: Colors.black,
                                                     size: 35,
                                                   ),
                                                   Padding(
-                                                    padding: const EdgeInsets.only(
+                                                    padding: EdgeInsets.only(
                                                         left: 10),
                                                     child: Text(
                                                       "Ambil Dari Kamera",
@@ -186,14 +186,14 @@ class _editProfileState extends State<editProfile> {
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
-                                              children: [
+                                              children: const [
                                                 Icon(
                                                   Icons.filter,
                                                   color: Colors.black,
                                                   size: 35,
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsets.only(
+                                                  padding: EdgeInsets.only(
                                                       left: 10),
                                                   child: Text(
                                                     "Pilih Dari Gallery",
@@ -242,7 +242,7 @@ class _editProfileState extends State<editProfile> {
           )),
           Container(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
@@ -260,13 +260,13 @@ class _editProfileState extends State<editProfile> {
                         controller: name,
                         decoration: InputDecoration(
                           labelText: 'Nama',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
                               color: Colors.black),
                           hintText: 'Nama',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
@@ -287,13 +287,13 @@ class _editProfileState extends State<editProfile> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: 'No Telp',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
                               color: Colors.black),
                           hintText: 'No Telp',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
@@ -313,13 +313,13 @@ class _editProfileState extends State<editProfile> {
                         controller: alamat,
                         decoration: InputDecoration(
                           labelText: 'Alamat',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
                               color: Colors.black),
                           hintText: 'Alamat',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
@@ -341,7 +341,7 @@ class _editProfileState extends State<editProfile> {
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: 'E-Mail',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
@@ -358,7 +358,7 @@ class _editProfileState extends State<editProfile> {
                     ),
                     SizedBox(
                       child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20),
@@ -384,7 +384,7 @@ class _editProfileState extends State<editProfile> {
                             print(no_telp.text);
                             print(email.text);
                           },
-                          child: Text(
+                          child: const Text(
                             "Simpan",
                             style: TextStyle(
                                 fontFamily: 'Poppins',
