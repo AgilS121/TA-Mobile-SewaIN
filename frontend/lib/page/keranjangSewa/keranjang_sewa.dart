@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/controllers/services.dart';
 import 'package:frontend/controllers/services/dataSewaService.dart';
 import 'package:frontend/models/sewas.dart';
+import 'package:frontend/page/Pembayaran/pembayaran.dart';
 import 'package:frontend/theme/pallete.dart';
 import 'package:intl/intl.dart';
 
@@ -79,64 +80,95 @@ class _KeranjangSewaState extends State<KeranjangSewa> {
     return ListView.builder(
       itemCount: DataSewa.sewa.length,
       itemBuilder: (BuildContext context, int index) {
-        // print('ini data');
-        // print(DataSewa.sewa[index].barang.nama_barang);
-        // print(DataSewa.sewa[index].barang.deskripsi);
-        // print(DataSewa.sewa[index].id_penyewa);
-        // print(DataSewa.sewa[index].id_barang);
-        // print(DataSewa.sewa[index].status);
-        // print(DataSewa.sewa[index].barang.image);
         if (DataSewa.sewa[index].status != 'Selesai') {
           return Card(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              child: ListTile(
-                leading: Image.network(
-                  Constans.imageUrl + DataSewa.sewa[index].barang.image,
-                  width: 46,
-                  height: 46,
-                  fit: BoxFit.cover,
-                ),
-                title: Text(
-                  DataSewa.sewa[index].barang.nama_barang,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
+            child: InkWell(
+              onTap: () {
+                if (DataSewa.sewa[index].status == 'Belum') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Pembayaran(
+                        accessToken: widget.accessToken,
+                        datasewa: {
+                          "id": DataSewa.sewa[index].id,
+                          "id_barang": DataSewa.sewa[index].id_barang,
+                          "id_penyewa": DataSewa.sewa[index].id_penyewa,
+                          "durasi_sewa": DataSewa.sewa[index].durasi_sewa,
+                          "jumlah_sewa": DataSewa.sewa[index].jumlah_sewa,
+                          "harga_total": DataSewa.sewa[index].total_harga,
+                          "status": DataSewa.sewa[index].status,
+                          "name": DataSewa.sewa[index].barang.nama_barang,
+                          "email": DataSewa.sewa[index].user.email
+                        },
+                        databarang: {
+                          "id": DataSewa.sewa[index].id,
+                          "id_barang": DataSewa.sewa[index].id_barang,
+                          "id_penyewa": DataSewa.sewa[index].id_penyewa,
+                          "durasi_sewa": DataSewa.sewa[index].durasi_sewa,
+                          "jumlah_sewa": DataSewa.sewa[index].jumlah_sewa,
+                          "harga_total": DataSewa.sewa[index].total_harga,
+                          "status": DataSewa.sewa[index].status,
+                          "name": DataSewa.sewa[index].barang.nama_barang,
+                          "email": DataSewa.sewa[index].user.email
+                        },
+                      ),
+                    ),
+                  );
+                  print(
+                      'ini data ${DataSewa.sewa[index].user.email} || ${DataSewa.sewa[index].barang.nama_barang} || ${DataSewa.sewa[index].id} \n ${DataSewa.sewa[index].jumlah_sewa} \n ${DataSewa.sewa[index].total_harga}');
+                }
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                child: ListTile(
+                  leading: Image.network(
+                    Constans.imageUrl + DataSewa.sewa[index].barang.image,
+                    width: 46,
+                    height: 46,
+                    fit: BoxFit.cover,
                   ),
-                ),
-                subtitle: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      DataSewa.sewa[index].barang.deskripsi,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                      ),
+                  title: Text(
+                    DataSewa.sewa[index].barang.nama_barang,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
                     ),
-                    Text(
-                      "durasi sewa",
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Poppins',
-                        color: MyColors.bg,
+                  ),
+                  subtitle: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        DataSewa.sewa[index].barang.deskripsi,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
+                      Text(
+                        "durasi sewa",
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Poppins',
+                          color: MyColors.bg,
+                        ),
+                      ),
+                    ],
+                  ),
+                  trailing: Text(
+                    DataSewa.sewa[index].status,
+                    style: TextStyle(
+                      color: DataSewa.sewa[index].status == 'Sudah'
+                          ? Colors.green
+                          : Colors.orange,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Poppins',
+                      fontSize: 10,
                     ),
-                  ],
-                ),
-                trailing: Text(
-                  DataSewa.sewa[index].status,
-                  style: TextStyle(
-                    color: DataSewa.sewa[index].status == 'Sudah'
-                        ? Colors.green
-                        : Colors.orange,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Poppins',
-                    fontSize: 10,
                   ),
                 ),
               ),
