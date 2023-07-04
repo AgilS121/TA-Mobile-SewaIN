@@ -16,6 +16,9 @@ class KeranjangSewa extends StatefulWidget {
 class _KeranjangSewaState extends State<KeranjangSewa> {
   final formatCurrency =
       NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
+     Future<void> refreshPage() async {
+    fetchData();
+  }
 
   void fetchData() async {
     try {
@@ -71,7 +74,10 @@ class _KeranjangSewaState extends State<KeranjangSewa> {
           ],
         ),
       ),
-      body: body(),
+      body: RefreshIndicator(
+        onRefresh: refreshPage,
+        child: body(),
+      ),
     );
   }
 
