@@ -45,7 +45,12 @@ class _EditBarangState extends State<EditBarang> {
 
   Future<void> fetchCategories() async {
     final url = Constans.apiUrl + '/kategori';
-    final response = await http.get(Uri.parse(url));
+    final headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${widget.accessToken}'
+    };
+
+    final response = await http.get(Uri.parse(url), headers: headers);
     final jsonData = jsonDecode(response.body);
     final dataKategori = jsonData['data'];
 
@@ -58,7 +63,12 @@ class _EditBarangState extends State<EditBarang> {
 
   Future<void> fetchSubCategories() async {
     final url = Constans.apiUrl + '/subkategori';
-    final response = await http.get(Uri.parse(url));
+    final headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${widget.accessToken}'
+    };
+
+    final response = await http.get(Uri.parse(url), headers: headers);
     final jsonData = jsonDecode(response.body);
     final datasubKategori = jsonData['data'];
 
@@ -133,7 +143,8 @@ class _EditBarangState extends State<EditBarang> {
   Widget body() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(right: 19, left: 19, bottom: 15, top: 15),
+        padding:
+            const EdgeInsets.only(right: 19, left: 19, bottom: 15, top: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -257,7 +268,8 @@ class _EditBarangState extends State<EditBarang> {
                 ),
                 const SizedBox(height: 15),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.blue,
@@ -451,7 +463,8 @@ class _EditBarangState extends State<EditBarang> {
                   child: Container(
                     width: double.infinity,
                     height: 50,
-                    padding: const EdgeInsets.only(bottom: 10.0, left: 10, right: 10),
+                    padding: const EdgeInsets.only(
+                        bottom: 10.0, left: 10, right: 10),
                     child: ElevatedButton(
                       onPressed: () {
                         EditBarangMember.barangMember(
