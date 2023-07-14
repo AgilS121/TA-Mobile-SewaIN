@@ -29,7 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<List<Barang>> fetchData() async {
     try {
-      final List<Barang> data = await HomeService.fetchBarang();
+      final List<Barang> data =
+          await HomeService.fetchBarang(widget.accessToken);
       return data;
     } catch (e) {
       print('Gagal mengambil data: $e');

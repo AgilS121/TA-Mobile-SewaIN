@@ -1,11 +1,10 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously, prefer_interpolation_to_compose_strings
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/components/root.dart';
 import 'package:frontend/controllers/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginService {
   static Future<void> login(
@@ -32,6 +31,9 @@ class LoginService {
 
         final memberData = responseData['member'];
         final status = memberData != null ? memberData['status'] ?? '' : '';
+
+        await LoginService.saveLoginStatus(
+            accessToken, status); // Simpan accessToken dan status
 
         Navigator.pushReplacement(
           context,
@@ -112,5 +114,13 @@ class LoginService {
         ),
       );
     }
+  }
+
+  static Future<void> saveLoginStatus(String accessToken, String status) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('accessToken', accessToken);
+    await prefs.setString('status', status);
+
+    print('ini akses token di login service $accessToken');
   }
 }
