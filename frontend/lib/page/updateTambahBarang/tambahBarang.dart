@@ -53,7 +53,12 @@ class _TambahBarangState extends State<TambahBarang> {
 
   Future<void> fetchCategories() async {
     final url = Constans.apiUrl + '/kategori';
-    final response = await http.get(Uri.parse(url));
+    final headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${widget.accessToken}'
+    };
+
+    final response = await http.get(Uri.parse(url), headers: headers);
     final jsonData = jsonDecode(response.body);
     final dataKategori = jsonData['data'];
 
@@ -66,7 +71,12 @@ class _TambahBarangState extends State<TambahBarang> {
 
   Future<void> fetchsubCategories() async {
     final url = Constans.apiUrl + '/subkategori';
-    final response = await http.get(Uri.parse(url));
+    final headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${widget.accessToken}'
+    };
+
+    final response = await http.get(Uri.parse(url), headers: headers);
     final jsonData = jsonDecode(response.body);
     final datasubKategori = jsonData['data'];
 
@@ -119,7 +129,8 @@ class _TambahBarangState extends State<TambahBarang> {
   Widget body() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(right: 19, left: 19, bottom: 15, top: 15),
+        padding:
+            const EdgeInsets.only(right: 19, left: 19, bottom: 15, top: 15),
         child: Form(
           key: _formKey,
           child: Column(
@@ -246,7 +257,8 @@ class _TambahBarangState extends State<TambahBarang> {
                   ),
                   const SizedBox(height: 15),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.blue,
@@ -387,7 +399,8 @@ class _TambahBarangState extends State<TambahBarang> {
                       ),
                       const SizedBox(height: 8),
                       Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                        padding:
+                            const EdgeInsets.only(top: 10, left: 10, right: 10),
                         child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: dataInput.length + 1,
